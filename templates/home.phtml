@@ -148,6 +148,42 @@
                     </div>
                 </div>
             </div>
+            <?php
+            $logTypes = [
+                'newPost' => [
+                    'icon' => 'fa-comment',
+                    'text' => 'New Post',
+                ],
+                'newFeed' => [
+                    'icon' => 'fa-rss',
+                    'text' => 'New Feed',
+                ],
+                'addedToFeed' => [
+                    'icon' => 'fa-chevron-down',
+                    'text' => 'Added to feed',
+                ],
+                'deletedFeed' => [
+                    'icon' => 'fa-times-circle',
+                    'text' => 'Deleted feed',
+                ],
+                'disabledFeed' => [
+                    'icon' => 'fa-times',
+                    'text' => 'Disabled feed',
+                ],
+                'feedRequested' => [
+                    'icon' => 'fa-bolt',
+                    'text' => 'Feed requested',
+                ],
+                'serverNotResponding' => [
+                    'icon' => 'fa-warning',
+                    'text' => 'Server Not Responding',
+                ],
+                'enabledFeed' => [
+                    'icon' => 'fa-lightbulb-o',
+                    'text' => 'Enabled feed',
+                ],
+            ];
+            ?>
             <!-- /.col-lg-8 -->
             <div class="col-lg-4">
                 <div class="panel panel-default">
@@ -157,51 +193,13 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div class="list-group">
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-comment fa-fw"></i> New Post
-                                <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                </span>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-rss fa-fw"></i> New feed
-                                <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                </span>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-chevron-down fa-fw"></i> Added to feed
-                                <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                </span>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-times-circle fa-fw"></i> Deleted feed
-                                <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                                </span>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-times fa-fw"></i> Disabled feed
-                                <span class="pull-right text-muted small"><em>11:32 AM</em>
-                                </span>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-bolt fa-fw"></i> Feed requested
-                                <span class="pull-right text-muted small"><em>11:13 AM</em>
-                                </span>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-warning fa-fw"></i> Server Not Responding
-                                <span class="pull-right text-muted small"><em>10:57 AM</em>
-                                </span>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-lightbulb-o fa-fw"></i> Enabled feed
-                                <span class="pull-right text-muted small"><em>9:49 AM</em>
-                                </span>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="fa fa-bolt fa-fw"></i> Feed requested
-                                <span class="pull-right text-muted small"><em>Yesterday</em>
-                                </span>
-                            </a>
+                            <?php foreach ($this->logs as $logItem) { ?>
+                                <a href="#" class="list-group-item">
+                                    <i class="fa <?php echo $logTypes[$logItem['type']]['icon']; ?> fa-fw"></i> <?php echo $logTypes[$logItem['type']]['text']; ?>
+                                    <span class="pull-right text-muted small"><em><?php echo $logItem['timestamp']; ?></em>
+                                    </span>
+                                </a>
+                            <?php } ?>
                         </div>
                         <a href="#" class="btn btn-default btn-block">View All Alerts</a>
                     </div>

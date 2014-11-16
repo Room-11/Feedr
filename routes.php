@@ -39,10 +39,14 @@ $router->post('logout', '/logout', function(AccessPoint $route) use ($csrfToken,
 
 $router->get('home', '/', function(AccessPoint $route) use ($htmlTemplate, $csrfToken, $user, $dbConnection) {
     $feedDatabase = new \Feedr\Storage\Database\Feed($dbConnection);
+    $logDatabase  = new \Feedr\Storage\Database\Log($dbConnection);
+
+    $timeAgo      = new \Feedr\Format\TimeAgo();
 
     return $htmlTemplate->render('home.phtml', [
         'csrfToken' => $csrfToken,
         'feeds'     => $feedDatabase->getFeeds($user->get('id')),
+        'logs'      => $logDatabase->getLogItemLimited($user->get('id'), $timeAgo),
     ]);
 });
 

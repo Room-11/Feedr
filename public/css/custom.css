@@ -30,7 +30,7 @@
     vertical-align: middle;
 }
 
-.panel-body .chat.preview .header {
+.panel-body .chat.preview .header, .panel-body .chat .header {
     overflow: hidden;
 }
 

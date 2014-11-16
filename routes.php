@@ -43,10 +43,22 @@ $router->get('home', '/', function(AccessPoint $route) use ($htmlTemplate, $csrf
 
     $timeAgo      = new \Feedr\Format\TimeAgo();
 
+    $feeds = $feedDatabase->getFeeds($user->get('id'));
+
+    $posts = [];
+
+    if (count($feeds)) {
+        $firstFeed = reset($feeds);
+        $firstKey  = key($feeds);
+
+        $posts = $feedDatabase->getPosts($firstKey, $timeAgo);
+    }
+
     return $htmlTemplate->render('home.phtml', [
         'csrfToken' => $csrfToken,
-        'feeds'     => $feedDatabase->getFeeds($user->get('id')),
+        'feeds'     => $feeds,
         'logs'      => $logDatabase->getLogItemLimited($user->get('id'), $timeAgo),
+        'posts'     => $posts,
     ]);
 });
 

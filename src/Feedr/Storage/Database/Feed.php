@@ -16,6 +16,7 @@ namespace Feedr\Storage\Database;
 
 use Feedr\Network\Http\RequestData;
 use Feedr\Auth\User;
+use Feedr\Format\TimeAgo;
 
 /**
  * Handles database calls for feeds
@@ -214,5 +215,35 @@ class Feed
         ]);
 
         return $stmt->fetchColumn(0);
+    }
+
+    public function getPosts($feedId, TimeAgo $timeFormatter)
+    {
+        $query = 'SELECT posts.id AS postid, posts.release_id, posts.avatar_url, posts.version, posts.timestamp, posts.content, posts.url, feeds_repositories.repository';
+        $query.= ' FROM posts, feeds_repositories';
+        $query.= ' WHERE feeds_repositories.feed_id = :feedid';
+        $query.= ' AND feeds_repositories.id = posts.feed_repository_id';
+        $query.= ' ORDER BY posts.id DESC';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'feedid' => $feedId,
+        ]);
+
+        $recordset = $stmt->fetchAll();
+
+        if (!$recordset) {
+            return [];
+        }
+
+        foreach ($recordset as $index => $record) {
+            $recordset[$index]['timestamp'] = $timeFormatter->calculate(new \DateTime($record['timestamp']));
+
+            if (strlen($record['content']) > 250) {
+                $recordset[$index]['content'] = substr($record['content'], 0, 100) . '...';
+            }
+        }
+
+        return $recordset;
     }
 }

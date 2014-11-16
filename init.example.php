@@ -35,7 +35,7 @@ ini_set('date.timezone', 'Europe/Amsterdam');
 /**
  * Setup database connection
  */
-$dbConnection = new \PDO('pgsql:dbname=feedr;host=127.0.0.1', 'xxxxxxxxx', 'xxxxxxxxxxxxx');
+$dbConnection = new \PDO('pgsql:dbname=feedr;host=127.0.0.1', '', '');
 $dbConnection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
 $dbConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 $dbConnection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
@@ -44,6 +44,7 @@ $dbConnection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
  * Setup GitHub API credentials
  */
 $githubCredentials = [
-    'key'    => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    'secret' => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    'key'       => '',
+    'secret'    => '',
+    'cli_token' => '',
 ];

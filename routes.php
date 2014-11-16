@@ -127,3 +127,35 @@ $router->get('get-releases', '/get-releases', function(AccessPoint $route) use (
 $router->get('search-user', '/search-user', function(AccessPoint $route) use ($request, $github) {
     return $github->request('/search/users?q=' . urlencode($request->get('user')));
 });
+
+$router->get('atom-feed', '/atom/{id}/{title}/feed.xml', function(AccessPoint $route) {
+    $xml = '<?xml version="1.0" encoding="utf-8"?>';
+    $xml.= '<feed xmlns="http://www.w3.org/2005/Atom">';
+    $xml.= '    <id>https://feedr.pieterhordijk.com</id>';
+    $xml.= '    <title>Feedr test feed \0/</title>';
+    $xml.= '    <updated>2014-11-17T00:30:02Z</updated>';
+    $xml.= '    <author>';
+    $xml.= '        <name>PeeHaa</name>';
+    $xml.= '        <uri>http://stackoverflow.com/users/508666/peehaa</uri>';
+    $xml.= '    </author>';
+    $xml.= '    <link href="https://feedr.pieterhordijk.com/atom/1/demo-feed/feed.xml"/>';
+    $xml.= '    <generator uri="https://github.com/Room-11/Feedr" version="1.0">';
+    $xml.= '        Feedr';
+    $xml.= '    </generator>';
+    $xml.= '    <entry>';
+    $xml.= '        <id>http://example.com/blog/1234</id>';
+    $xml.= '        <title>Test entry</title>';
+    $xml.= '        <updated>2014-11-17T00:30:02-05:00</updated>';
+    $xml.= '        <author>';
+    $xml.= '            <name>PeeHaa</name>';
+    $xml.= '            <content>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae tortor nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu ante vel nunc posuere egestas. In vehicula rhoncus aliquam. Duis sit amet fringilla nisl. Quisque hendrerit diam mi, a facilisis neque malesuada volutpat. Phasellus risus tellus, luctus eget fermentum a, finibus a magna. Mauris dignissim id nunc aliquam gravida. Vestibulum quis quam at felis rhoncus varius. Proin lectus nulla, auctor sit amet placerat egestas, ultricies sit amet mauris. Morbi ut nisi sed leo vestibulum varius. Nullam aliquam, quam sit amet ultricies sollicitudin, mauris ipsum molestie purus, eget lobortis ipsum mi cursus est. Fusce vitae consequat est. Phasellus tempus est ut scelerisque placerat. Curabitur posuere lacus et sapien porttitor molestie. Aenean pellentesque volutpat lectus ut vulputate. Quisque eget maximus libero.</content>';
+    $xml.= '            <link rel="alternate" href="https://github.com/PeeHaa/OpCacheGUI/releases/tag/v1.0.0-rc1"/>';
+    $xml.= '            <summary>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae tortor nisi. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</summary>';
+    $xml.= '        </author>';
+    $xml.= '    </entry>';
+    $xml.= '</feed>';
+
+    //header('Content-Type: application/atom+xml');
+    header('Content-Type: text/xml');
+    return $xml;
+});

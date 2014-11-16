@@ -57,10 +57,21 @@ $csrfToken      = new CsrfToken($sessionStorage, new Factory());
  * Setup the GitHub service
  */
 $serviceFactory = new ServiceFactory();
+$storage = new OauthSession();
+
+/**
+ * Return when on CLI
+ */
+if (php_sapi_name() === 'cli') {
+    return;
+}
+
+/**
+ * Request access token
+ */
 $uriFactory     = new UriFactory();
 $currentUri     = $uriFactory->createFromSuperGlobalArray($_SERVER);
 $currentUri->setQuery('');
-$storage = new OauthSession();
 $credentials = new Credentials(
     $githubCredentials['key'],
     $githubCredentials['secret'],

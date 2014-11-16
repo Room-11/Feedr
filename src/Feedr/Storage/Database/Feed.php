@@ -194,9 +194,25 @@ class Feed
                 'admins' => [
                     $record['userid'] => $record['username'],
                 ],
+                'posts' => $this->getPostCount($record['feedid']),
             ];
         }
 
         return $result;
+    }
+
+    private function getPostCount($feedId)
+    {
+        $query = 'SELECT count(posts.id)';
+        $query.= ' FROM posts, feeds_repositories';
+        $query.= ' WHERE posts.feed_repository_id = feeds_repositories.id';
+        $query.= ' AND feeds_repositories.feed_id = :feedid';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'feedid' => $feedId,
+        ]);
+
+        return $stmt->fetchColumn(0);
     }
 }

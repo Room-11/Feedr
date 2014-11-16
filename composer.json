@@ -1,0 +1,19 @@
+{
+    "name": "room11/feedr",
+    "description": "Provides a feed of the awesome",
+    "keywords": ["feed", "xml", "github", "room11", "lusitanians mom"],
+    "homepage": "https://github.com/PeeHaa/OpCacheGUI",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pieter Hordijk",
+            "email": "info@pieterhordijk.com",
+            "homepage": "https://pieterhordijk.com",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "lusitanian/oauth": "~0.3"
+    }
+}

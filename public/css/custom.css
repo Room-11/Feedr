@@ -1,0 +1,46 @@
+.logout-form button {
+    border: 0;
+    background: transparent;
+    padding: 3px 20px;
+    min-height: 0;
+    display: block;
+    clear: both;
+    text-align: left;
+}
+
+.logout-form button:hover {
+    color: #262626;
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+
+#page-wrapper {
+    margin: 0;
+}
+
+.navbar-default .navbar-toggle {
+    display: none;
+}
+
+.img-circle {
+    width: 50px;
+}
+
+.table.vertical-center > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.panel-body .chat.preview .header {
+    overflow: hidden;
+}
+
+.panel-body .chat.preview .loader {
+    display: none;
+    text-align: center;
+    margin-top: 133px;
+    border: 0;
+}
+
+.panel-body .chat.preview .new-item {
+    display: none;
+}

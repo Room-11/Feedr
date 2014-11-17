@@ -177,6 +177,16 @@
         });
     }
 
+    $('#addAdmin input[name="user"]').on('keypress', function(e) {
+        if (e.which !== 13) {
+            return;
+        }
+
+        e.preventDefault();
+
+        $('[data-action="userSearch"]').click();
+    });
+
     $('[data-action="userSearch"]').on('click', function(e) {
         var button    = $(this);
         var userValue = button.closest('.input-group').children('input').val();

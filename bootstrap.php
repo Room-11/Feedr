@@ -18,6 +18,7 @@ use Feedr\Storage\ImmutableArray;
 use Feedr\Network\Http\Request;
 use Feedr\Router\Factory as RouterFactory;
 use Feedr\Presentation\Html;
+use Feedr\Presentation\Xml;
 use Feedr\Network\Router;
 use Feedr\Network\RouteFactory;
 
@@ -88,6 +89,11 @@ $user = new User($sessionStorage, new Auth($dbConnection));
  * Setup the HTML template renderer
  */
 $htmlTemplate = new Html(__DIR__ . '/templates', 'page.phtml');
+
+/**
+ * Setup the XML template renderer
+ */
+$xmlTemplate = new Xml(__DIR__ . '/templates');
 
 /**
  * Setup the request object

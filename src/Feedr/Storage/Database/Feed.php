@@ -223,7 +223,7 @@ class Feed
         $query.= ' FROM posts, feeds_repositories';
         $query.= ' WHERE feeds_repositories.feed_id = :feedid';
         $query.= ' AND feeds_repositories.id = posts.feed_repository_id';
-        $query.= ' ORDER BY posts.id DESC';
+        $query.= ' ORDER BY posts.timestamp DESC';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([

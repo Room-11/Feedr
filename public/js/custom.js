@@ -1,4 +1,14 @@
 (function($) {
+    $('#addRepo input[name="repo"]').on('keypress', function(e) {
+        if (e.which !== 13) {
+            return;
+        }
+
+        e.preventDefault();
+
+        $('[data-action="repoSearch"]').click();
+    });
+
     $('[data-action="repoSearch"]').on('click', function(e) {
         var button    = $(this);
         var repoValue = button.closest('.input-group').children('input').val();

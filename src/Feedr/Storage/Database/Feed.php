@@ -240,7 +240,7 @@ class Feed
             $recordset[$index]['timestamp'] = $timeFormatter->calculate(new \DateTime($record['timestamp']));
 
             if (strlen($record['content']) > 250) {
-                $recordset[$index]['content'] = substr($record['content'], 0, 100) . '...';
+                $recordset[$index]['content'] = substr($record['content'], 0, 250) . '...';
             }
         }
 

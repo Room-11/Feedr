@@ -88,17 +88,18 @@ $router->post('create', '/create', function(AccessPoint $route) use ($request, $
 });
 
 $router->get('search-repository', '/search-repository', function(AccessPoint $route) use ($request, $github) {
-    if (filter_var($request->get('repo'), FILTER_VALIDATE_URL) !== false) {
+    if (filter_var($request->get('repo'), FILTER_VALIDATE_URL) !== false || substr_count($request->get('repo'), '/') === 1) {
         $parts = explode('/', $request->get('repo'));
-    } elseif (substr_count($request->get('repo'), '/') === 1) {
-        //$repositoryParts = explode('/', $request->get('repo'));
-    } else {
+
+        $repo  = array_pop($parts);
+        $owner = array_pop($parts);
+
+        return '[' . $github->request('/repos/' . $owner . '/' . $repo) . ']';
     }
 
-    $repo  = array_pop($parts);
-    $owner = array_pop($parts);
+    $results = json_decode($github->request('/search/repositories?q=' . urlencode($request->get('repo'))), true);
 
-    return '[' . $github->request('/repos/' . $owner . '/' . $repo) . ']';
+    return json_encode($results['items']);
 });
 
 $router->get('get-releases', '/get-releases', function(AccessPoint $route) use ($github, $request) {

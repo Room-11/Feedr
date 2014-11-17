@@ -2,11 +2,15 @@
 
 use Feedr\Router\Route\AccessPoint;
 
-$router->get('atom-feed', '/atom/{id}/{title}/feed.xml', function(AccessPoint $route) use ($xmlTemplate) {
+$router->get('atom-feed', '/atom/{id}/{title}/feed.xml', function(AccessPoint $route) use ($xmlTemplate, $dbConnection, $request) {
+    $feedDatabase = new \Feedr\Storage\Database\Feed($dbConnection);
+    $timeAgo      = new \Feedr\Format\TimeAgo();
+
     header('Content-Type: application/atom+xml');
 
     return $xmlTemplate->render('feed.pxml', [
-        'var' => 'value',
+        'id'  => $request->getBaseUrl() . '/atom/' . $route->getVariable('id') . '/' . $route->getVariable('title') . '/feed.xml',
+        'feed' => $feedDatabase->getFeed($route->getVariable('id'), $timeAgo),
     ]);
 });
 

@@ -239,11 +239,23 @@ class Feed
         foreach ($recordset as $index => $record) {
             $recordset[$index]['timestamp'] = $timeFormatter->calculate(new \DateTime($record['timestamp']));
 
+            $recordset[$index]['full_content'] = $record['content'];
+            $recordset[$index]['datetime']     = new \DateTime($record['timestamp']);
+
             if (strlen($record['content']) > 250) {
                 $recordset[$index]['content'] = substr($record['content'], 0, 250) . '...';
             }
         }
 
         return $recordset;
+    }
+
+    public function getFeed($feedId, TimeAgo $timeFormatter)
+    {
+        $this->log('feedRequested', new \DateTime(), null, $feedId);
+
+        return [
+            'posts' => $this->getPosts($feedId, $timeFormatter),
+        ];
     }
 }

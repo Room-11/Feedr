@@ -51,7 +51,13 @@ foreach ($feeds as $feed) {
 }
 
 function postExists(\PDO $dbConnection, $feedId, $releaseId) {
-    $stmt = $dbConnection->prepare('SELECT count(id) FROM posts WHERE feed_repository_id = :feedid AND release_id = :releaseid');
+    $query = 'SELECT count(posts.id)';
+    $query.= ' FROM posts';
+    $query.= ' JOIN feeds_repositories ON feeds_repositories.id = posts.feed_repository_id';
+    $query.= ' WHERE feeds_repositories.feed_id = :feedid';
+    $query.= ' AND release_id = :releaseid';
+
+    $stmt = $dbConnection->prepare($query);
     $stmt->execute([
         'feedid'    => $feedId,
         'releaseid' => $releaseId,

@@ -271,7 +271,14 @@ class Feed
     {
         $this->log('feedRequested', new \DateTime(), null, $feedId);
 
+        $stmt = $this->dbConnection->prepare('SELECT name FROM feeds WHERE id = :id');
+        $stmt->execute([
+            'id' => $feedId,
+        ]);
+
         return [
+            'id'    => $feedId,
+            'name'  => $stmt->fetchColumn(0),
             'posts' => $this->getPosts($feedId, $timeFormatter),
         ];
     }

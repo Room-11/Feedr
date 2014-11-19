@@ -28,7 +28,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover vertical-center">
+                            <table class="table table-striped table-bordered table-hover vertical-center" id="feeds-overview">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -40,12 +40,12 @@
                                 </thead>
                                 <tbody>
                                     <?php $i = 0; foreach ($this->feeds as $id => $feed) { $i++ ?>
-                                        <tr class="<?php echo ['odd', 'even'][$i%2]; ?>">
+                                        <tr class="<?php echo ['odd', 'even'][$i%2]; ?>" data-url="/feeds/<?php echo $id; ?>/<?php echo $this->url->slugify($feed['name']); ?>">
                                             <td><?php echo htmlspecialchars($feed['name'], ENT_QUOTES, 'UTF-8'); ?></td>
                                             <td><?php echo $feed['posts']; ?></td>
                                             <td><?php echo count($feed['admins']); ?></td>
                                             <td><?php echo $feed['requests']; ?></td>
-                                            <td><a href="/atom/<?php echo $id; ?>/name/feed.xml" class="btn btn-default" target="_blank"><i class="fa fa-rss fa-fw"></i></a></td>
+                                            <td><a href="/atom/<?php echo $id; ?>/<?php echo $this->url->slugify($feed['name']); ?>/feed.xml" class="btn btn-default" target="_blank"><i class="fa fa-rss fa-fw"></i></a></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

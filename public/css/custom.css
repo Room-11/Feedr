@@ -44,3 +44,7 @@
 .panel-body .chat.preview .new-item {
     display: none;
 }
+
+#feeds-overview tbody td {
+    cursor: pointer;
+}

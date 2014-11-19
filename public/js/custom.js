@@ -293,4 +293,14 @@
 
         $('input[name="admins"]').val(JSON.stringify(ids));
     }
+
+    $('#feeds-overview tbody td a').on('click', function(e) {
+        e.stopPropagation();
+    });
+
+    $('#feeds-overview tbody td').on('click', function(e) {
+        var url = $(this).closest('tr').data('url');
+
+        location.href = url;
+    });
 }(jQuery));

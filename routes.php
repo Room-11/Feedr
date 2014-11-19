@@ -54,6 +54,7 @@ $router->get('home', '/', function(AccessPoint $route) use ($htmlTemplate, $csrf
     $logDatabase  = new \Feedr\Storage\Database\Log($dbConnection);
 
     $timeAgo      = new \Feedr\Format\TimeAgo();
+    $url          = new \Feedr\Presentation\Url();
 
     $feeds = $feedDatabase->getFeeds($user->get('id'));
 
@@ -71,6 +72,7 @@ $router->get('home', '/', function(AccessPoint $route) use ($htmlTemplate, $csrf
         'feeds'     => $feeds,
         'logs'      => $logDatabase->getLogItemLimited($user->get('id'), $timeAgo),
         'posts'     => $posts,
+        'url'       => $url,
     ]);
 });
 
@@ -139,4 +141,15 @@ $router->get('get-releases', '/get-releases', function(AccessPoint $route) use (
 
 $router->get('search-user', '/search-user', function(AccessPoint $route) use ($request, $github) {
     return $github->request('/search/users?q=' . urlencode($request->get('user')));
+});
+
+$router->get('edit-feed', '/feeds/{id}/{name}', function(AccessPoint $route) use ($htmlTemplate, $csrfToken, $user, $dbConnection) {
+    $feedDatabase = new \Feedr\Storage\Database\Feed($dbConnection);
+    $timeAgo      = new \Feedr\Format\TimeAgo();
+
+    return $htmlTemplate->render('edit.phtml', [
+        'csrfToken' => $csrfToken,
+        'user'      => $user,
+        'feed'      => $feedDatabase->getFeed($route->getVariable('id'), $timeAgo),
+    ]);
 });

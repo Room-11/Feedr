@@ -181,6 +181,8 @@ class Feed
             return [];
         }
 
+        $ids = [];
+
         $result = [];
 
         foreach ($recordset as $record) {
@@ -190,13 +192,28 @@ class Feed
                 continue;
             }
 
+            $ids[] = $record['feedid'];
+
             $result[$record['feedid']] = [
                 'name'   => $record['name'],
                 'admins' => [
                     $record['userid'] => $record['username'],
                 ],
-                'posts' => $this->getPostCount($record['feedid']),
+                'posts'    => $this->getPostCount($record['feedid']),
+                'requests' => 0,
             ];
+        }
+
+        $query = 'SELECT log.feed_id AS id, count(log.feed_id) AS count';
+        $query.= ' FROM log';
+        $query.= ' WHERE log.feed_id IN(' . join(',', array_fill(0, count($ids), '?')) . ')';
+        $query.= ' GROUP BY log.feed_id';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute($ids);
+
+        foreach ($stmt->fetchAll() as $record) {
+            $result[$record['id']]['requests'] = $record['count'];
         }
 
         return $result;

@@ -55,9 +55,9 @@ class Log
             'userid'   => $userId,
         ]);
 
-        $logs1 = $stmt->fetchAll();
+        $userLogs = $stmt->fetchAll();
 
-        $query = 'SELECT log.id AS logid, log.type, log.timestamp, posts.id AS postid';
+        $query = 'SELECT log.id AS logid, log.type, log.timestamp, log.post_id AS postid';
         $query.= ' FROM log, posts, feeds_repositories, admins';
         $query.= ' WHERE posts.id = log.post_id';
         $query.= ' AND feeds_repositories.id = posts.feed_repository_id';
@@ -70,9 +70,24 @@ class Log
             'userid'   => $userId,
         ]);
 
-        $logs2 = $stmt->fetchAll();
+        $postLogs = $stmt->fetchAll();
 
-        $recordset = array_merge($logs1, $logs2);
+        $query = 'SELECT log.id AS logid, log.type, log.timestamp, log.feed_id AS feedid';
+        $query.= ' FROM log, feeds_repositories, admins';
+        $query.= ' WHERE feeds_repositories.feed_id = log.feed_id';
+        $query.= ' AND admins.feed_id = feeds_repositories.feed_id';
+        $query.= ' AND admins.user_id = :userid';
+        $query.= ' ORDER BY log.id DESC';
+        $query.= ' LIMIT 10 OFFSET 0';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'userid'   => $userId,
+        ]);
+
+        $feedLogs = $stmt->fetchAll();
+
+        $recordset = array_merge($userLogs, $postLogs, $feedLogs);
 
         if (!$recordset) {
             return [];

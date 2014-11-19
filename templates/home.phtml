@@ -35,15 +35,17 @@
                                         <th>Posts</th>
                                         <th>Admins</th>
                                         <th>Requests</th>
+                                        <th>Url</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i = 0; foreach ($this->feeds as $feed) { $i++ ?>
+                                    <?php $i = 0; foreach ($this->feeds as $id => $feed) { $i++ ?>
                                         <tr class="<?php echo ['odd', 'even'][$i%2]; ?>">
                                             <td><?php echo htmlspecialchars($feed['name'], ENT_QUOTES, 'UTF-8'); ?></td>
                                             <td><?php echo $feed['posts']; ?></td>
                                             <td><?php echo count($feed['admins']); ?></td>
                                             <td>#</td>
+                                            <td><a href="/atom/<?php echo $id; ?>/name/feed.xml" class="btn btn-default" target="_blank"><i class="fa fa-rss fa-fw"></i></a></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

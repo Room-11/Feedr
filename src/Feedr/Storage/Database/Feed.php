@@ -271,7 +271,7 @@ class Feed
 
     public function getPosts($feedId, TimeAgo $timeFormatter)
     {
-        $query = 'SELECT posts.id AS postid, posts.release_id, posts.avatar_url, posts.version, posts.timestamp, posts.content, posts.url, feeds_repositories.repository';
+        $query = 'SELECT posts.id AS postid, posts.release_id, posts.avatar_url, posts.version, posts.timestamp, posts.content, posts.url, posts.username, feeds_repositories.repository';
         $query.= ' FROM posts, feeds_repositories';
         $query.= ' WHERE feeds_repositories.feed_id = :feedid';
         $query.= ' AND feeds_repositories.id = posts.feed_repository_id';

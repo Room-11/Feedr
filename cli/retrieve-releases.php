@@ -68,9 +68,9 @@ function postExists(\PDO $dbConnection, $feedId, $releaseId) {
 
 function addPost(\PDO $dbConnection, $feedRepositoryId, array $release) {
     $query = 'INSERT INTO posts';
-    $query.= ' (release_id, feed_repository_id, avatar_url, version, url, timestamp, content)';
+    $query.= ' (release_id, feed_repository_id, avatar_url, version, url, timestamp, content, username)';
     $query.= ' VALUES';
-    $query.= ' (:releaseid, :feed_repository_id, :avatar_url, :version, :url, :timestamp, :content)';
+    $query.= ' (:releaseid, :feed_repository_id, :avatar_url, :version, :url, :timestamp, :content, :username)';
 
     $stmt = $dbConnection->prepare($query);
     $stmt->execute([
@@ -81,6 +81,7 @@ function addPost(\PDO $dbConnection, $feedRepositoryId, array $release) {
         'url'                => $release['html_url'],
         'timestamp'          => (new \DateTime($release['published_at']))->format('Y-m-d H:i:s'),
         'content'            => $release['body'],
+        'username'           => $release['author']['login'],
     ]);
 
     return $dbConnection->lastInsertId('posts_id_seq');

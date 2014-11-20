@@ -146,6 +146,12 @@ $router->get('search-user', '/search-user', function(AccessPoint $route) use ($r
 
 $router->get('edit-feed', '/feeds/{id}/{name}', function(AccessPoint $route) use ($htmlTemplate, $csrfToken, $user, $dbConnection) {
     $feedDatabase = new \Feedr\Storage\Database\Feed($dbConnection);
+
+    if (!$feedDatabase->isAdmin($user->get('id'), $route->getVariable('id'))) {
+        header('Location: ' . $request->getBaseUrl());
+        exit;
+    }
+
     $timeAgo      = new \Feedr\Format\TimeAgo();
 
     $url          = new \Feedr\Presentation\Url();

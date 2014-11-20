@@ -110,7 +110,8 @@ $router->get('search-repository', '/search-repository', function(AccessPoint $ro
 
 $router->get('get-releases', '/get-releases', function(AccessPoint $route) use ($github, $request) {
     $releases = [];
-    $ids      = $request->get('ids');
+    $repos    = $request->get('repos');
+    $ids      = array_column($repos, 'fullname');
 
     $timeAgo  = new \Feedr\Format\TimeAgo();
 
@@ -147,9 +148,37 @@ $router->get('edit-feed', '/feeds/{id}/{name}', function(AccessPoint $route) use
     $feedDatabase = new \Feedr\Storage\Database\Feed($dbConnection);
     $timeAgo      = new \Feedr\Format\TimeAgo();
 
+    $url          = new \Feedr\Presentation\Url();
+
+    $feed         = $feedDatabase->getFeed($route->getVariable('id'), $timeAgo, false);
+
+    $jsonRepos = [];
+    foreach ($feed['repos'] as $repo) {
+        $jsonRepos[] = [
+            'id'       => $repo['repository_id'],
+            'fullname' => $repo['repository'],
+        ];
+    }
+
     return $htmlTemplate->render('edit.phtml', [
         'csrfToken' => $csrfToken,
         'user'      => $user,
-        'feed'      => $feedDatabase->getFeed($route->getVariable('id'), $timeAgo),
+        'feed'      => $feed,
+        'jsonRepos' => json_encode($jsonRepos),
+        'url'       => $url,
     ]);
+});
+
+$router->post('edit-feed', '/feeds/{id}/{name}', function(AccessPoint $route) use ($csrfToken, $user, $dbConnection, $request) {
+    $authDatabase = new \Feedr\Storage\Database\Auth($dbConnection);
+    $feedDatabase = new \Feedr\Storage\Database\Feed($dbConnection);
+
+    if (!$feedDatabase->isAdmin($user->get('id'), $route->getVariable('id'))) {
+        header('Location: ' . $request->getBaseUrl());
+        exit;
+    }
+
+    $feedDatabase->update($route->getVariable('id'), $request, $user, $authDatabase);
+
+    header('Location: ' . $request->getBaseUrl());
 });

@@ -118,6 +118,23 @@ class Feed
     }
 
     /**
+     * Adds admins to a feed
+     *
+     * @param array $admin  List of admins to add to the feed
+     */
+    private function removeAdmins(array $admins)
+    {
+        if (!$admins) {
+            return;
+        }
+
+        $query = 'DELETE FROM admins WHERE id IN (' . join(',', array_fill(0, count($admins), '?')) . ')';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute(array_column($admins, 'id'));
+    }
+
+    /**
      * Adds repositories to feeds
      *
      * @param int   $feedId       The id of the feed
@@ -125,16 +142,34 @@ class Feed
      */
     private function addRepositories($feedId, array $repositories)
     {
-        $query = 'INSERT INTO feeds_repositories (feed_id, repository) VALUES (:feed_id, :repository)';
+        $query = 'INSERT INTO feeds_repositories (feed_id, repository, repository_id) VALUES (:feed_id, :repository, :repository_id)';
 
         $stmt = $this->dbConnection->prepare($query);
 
         foreach ($repositories as $repository) {
             $stmt->execute([
-                'feed_id'    => $feedId,
-                'repository' => $repository,
+                'feed_id'       => $feedId,
+                'repository'    => $repository['fullname'],
+                'repository_id' => $repository['id'],
             ]);
         }
+    }
+
+    /**
+     * Removes repositories from feeds
+     *
+     * @param array $repositories List of repositories to add
+     */
+    private function removeRepositories(array $repositories)
+    {
+        if (!$repositories) {
+            return;
+        }
+
+        $query = 'DELETE FROM feeds_repositories WHERE id IN (' . join(',', array_fill(0, count($repositories), '?')) . ')';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute(array_column($repositories, 'id'));
     }
 
     /**
@@ -267,9 +302,11 @@ class Feed
         return $recordset;
     }
 
-    public function getFeed($feedId, TimeAgo $timeFormatter)
+    public function getFeed($feedId, TimeAgo $timeFormatter, $log = true)
     {
-        $this->log('feedRequested', new \DateTime(), null, $feedId);
+        if ($log) {
+            $this->log('feedRequested', new \DateTime(), null, $feedId);
+        }
 
         $stmt = $this->dbConnection->prepare('SELECT name FROM feeds WHERE id = :id');
         $stmt->execute([
@@ -280,6 +317,137 @@ class Feed
             'id'    => $feedId,
             'name'  => $stmt->fetchColumn(0),
             'posts' => $this->getPosts($feedId, $timeFormatter),
+            'repos' => $this->getRepositories($feedId),
+            'admins'=> $this->getAdmins($feedId),
         ];
+    }
+
+    private function getRepositories($feedId)
+    {
+        $query = 'SELECT id, repository, repository_id FROM feeds_repositories WHERE feed_id = :feedid';
+        $query.= ' ORDER BY id ASC';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'feedid' => $feedId,
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
+    private function getAdmins($feedId)
+    {
+        $query = 'SELECT users.id, users.username';
+        $query.= ' FROM users';
+        $query.= ' JOIN admins ON admins.user_id = users.id';
+        $query.= ' WHERE admins.feed_id = :feedid';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'feedid' => $feedId,
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
+    public function isAdmin($userId, $feedId)
+    {
+        $query = 'SELECT COUNT(id) FROM admins WHERE feed_id = :feedid AND user_id = :userid';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'feedid' => $feedId,
+            'userid' => $userId,
+        ]);
+
+        return !!$stmt->fetchColumn(0);
+    }
+
+    /**
+     * Updates a new feed
+     *
+     * @param \Feedr\Network\Http\RequestData $request      The request
+     * @param \Feedr\Auth\User                $user         The user
+     * @param \Feedr\Storage\Database\Auth    $authDatabase The auth database handler
+     */
+    public function update($feedId, RequestData $request, User $user, Auth $authDatabase)
+    {
+        $this->createAdmins(json_decode($request->post('admins'), true), $authDatabase);
+
+        $this->updateRepositories($feedId, json_decode($request->post('repos'), true));
+
+        $this->updateAdmins($feedId, json_decode($request->post('admins'), true));
+
+        $stmt = $this->dbConnection->prepare('UPDATE feeds SET name = :name WHERE id = :feedid');
+        $stmt->execute([
+            'name'   => $request->post('name'),
+            'feedid' => $feedId,
+        ]);
+    }
+
+    private function updateRepositories($feedId, array $repositories)
+    {
+        $indexedRepos = [];
+        foreach ($repositories as $repo) {
+            $indexedRepos[$repo['id']] = $repo;
+        }
+
+        $query = 'SELECT id, repository_id FROM feeds_repositories WHERE feed_id = :feedid';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'feedid' => $feedId,
+        ]);
+
+        $deletedRepos = [];
+
+        foreach ($stmt->fetchAll() as $repo) {
+            if (!array_key_exists($repo['repository_id'], $indexedRepos)) {
+                $deletedRepos[] = $repo;
+
+                continue;
+            }
+
+            unset($indexedRepos[$repo['repository_id']]);
+        }
+
+        $this->removeRepositories($deletedRepos);
+        $this->addRepositories($feedId, $indexedRepos);
+    }
+
+    private function updateAdmins($feedId, array $admins)
+    {
+        $indexedAdmins = [];
+        foreach ($admins as $admin) {
+            $indexedAdmins[$admin['id']] = $admin;
+        }
+
+        $query = 'SELECT id, user_id FROM admins WHERE feed_id = :feedid';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'feedid' => $feedId,
+        ]);
+
+        $deletedAdmins = [];
+
+        foreach ($stmt->fetchAll() as $admin) {
+            if (!array_key_exists($admin['user_id'], $indexedAdmins)) {
+                $deletedAdmins[] = $admin;
+
+                continue;
+            }
+
+            unset($indexedAdmins[$admin['user_id']]);
+        }
+
+        $this->removeAdmins($deletedAdmins);
+        $this->addAdmins($feedId, $indexedAdmins);
+
+        $timestamp = new \DateTime();
+
+        foreach ($indexedAdmins as $admin) {
+            $this->log('addedToFeed', $timestamp, $admin['id'], $feedId);
+        }
     }
 }

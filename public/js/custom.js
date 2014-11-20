@@ -109,21 +109,24 @@
             $('.panel-body .chat.preview .loader').fadeIn('fast', function() {
                 $('.panel-body .chat.preview .new-item').remove();
 
-                var ids = [];
+                var repos = [];
 
                 $('#repos-table tbody tr').each(function() {
-                    ids.push($(this).data('fullname'));
+                    repos.push({
+                        id: $(this).data('id'),
+                        fullname: $(this).data('fullname')
+                    });
                 });
 
-                $('input[name="repos"]').val(JSON.stringify(ids));
+                $('input[name="repos"]').val(JSON.stringify(repos));
 
-                if (!ids.length) {
+                if (!repos.length) {
                     $('.panel-body .chat.preview .loader').fadeOut('fast', function() {
                         $('.panel-body .chat.preview .empty').fadeIn('fast');
                     });
                 } else {
                     $.get('/get-releases', {
-                        ids: ids
+                        repos: repos
                     }, function(releases) {
                         var previewPanel = $('.panel-body .chat.preview');
 

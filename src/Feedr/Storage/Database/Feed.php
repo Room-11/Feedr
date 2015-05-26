@@ -364,7 +364,7 @@ class Feed
             'userID' => $userId,
         ]);
 
-        return !!$stmt->fetchColumn(0);
+        return (bool)$stmt->fetchColumn(0);
     }
 
     /**

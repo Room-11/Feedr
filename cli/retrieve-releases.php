@@ -63,7 +63,7 @@ function postExists(\PDO $dbConnection, $feedId, $releaseId) {
         'releaseid' => $releaseId,
     ]);
 
-    return !!$stmt->fetchColumn(0);
+    return (bool)$stmt->fetchColumn(0);
 }
 
 function addPost(\PDO $dbConnection, $feedRepositoryId, array $release) {

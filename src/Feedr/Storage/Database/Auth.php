@@ -80,7 +80,7 @@ class Auth
             'id' => $id,
         ]);
 
-        return !!$stmt->fetchColumn(0);
+        return (bool)$stmt->fetchColumn(0);
     }
 
     /**

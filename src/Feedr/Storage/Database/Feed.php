@@ -52,21 +52,16 @@ class Feed
      */
     public function create(RequestData $request, User $user, Auth $authDatabase)
     {
-        $this->createAdmins(json_decode($request->post('admins'), true), $authDatabase);
+        $repos = json_decode($request->post('repos'), true);
+        $admins = json_decode($request->post('admins'), true);
 
         $feedId = $this->createFeed($request->post('name'));
+        $this->log('newFeed', new \DateTime, $user->get('id'), $feedId);
 
-        $this->addRepositories($feedId, json_decode($request->post('repos'), true));
+        $this->addRepositories($feedId, $repos);
 
-        $this->addAdmins($feedId, json_decode($request->post('admins'), true));
-
-        $timestamp = new \DateTime();
-
-        $this->log('newFeed', $timestamp, $user->get('id'), $feedId);
-
-        foreach (json_decode($request->post('admins'), true) as $admin) {
-            $this->log('addedToFeed', $timestamp, $admin['id'], $feedId);
-        }
+        $this->createAdmins($admins, $authDatabase);
+        $this->addAdmins($feedId, $admins);
     }
 
     /**
@@ -108,21 +103,25 @@ class Feed
     private function addAdmins($feedId, array $admins)
     {
         $stmt = $this->dbConnection->prepare('INSERT INTO admins (feed_id, user_id) VALUES (:feed_id, :user_id)');
+        $timestamp = new \DateTime;
 
         foreach ($admins as $admin) {
             $stmt->execute([
                 'feed_id' => $feedId,
                 'user_id' => $admin['id'],
             ]);
+
+            $this->log('addedToFeed', $timestamp, $admin['id'], $feedId);
         }
     }
 
     /**
      * Adds admins to a feed
      *
-     * @param array $admins List of admins to add to the feed
+     * @param int   $feedId The id of the feed
+     * @param array $admins List of admins to remove from the feed
      */
-    private function removeAdmins(array $admins)
+    private function removeAdmins($feedId, array $admins)
     {
         if (!$admins) {
             return;
@@ -132,6 +131,11 @@ class Feed
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute(array_column($admins, 'id'));
+
+        $timestamp = new \DateTime;
+        foreach ($admins as $admin) {
+            $this->log('removedFromFeed', $timestamp, $admin['id'], $feedId);
+        }
     }
 
     /**
@@ -305,7 +309,7 @@ class Feed
     public function getFeed($feedId, TimeAgo $timeFormatter, $log = true)
     {
         if ($log) {
-            $this->log('feedRequested', new \DateTime(), null, $feedId);
+            $this->log('feedRequested', new \DateTime, null, $feedId);
         }
 
         $stmt = $this->dbConnection->prepare('SELECT name FROM feeds WHERE id = :id');
@@ -373,17 +377,21 @@ class Feed
      */
     public function update($feedId, RequestData $request, User $user, Auth $authDatabase)
     {
-        $this->createAdmins(json_decode($request->post('admins'), true), $authDatabase);
+        $repos = json_decode($request->post('repos'), true);
+        $admins = json_decode($request->post('admins'), true);
 
-        $this->updateRepositories($feedId, json_decode($request->post('repos'), true));
+        $this->updateRepositories($feedId, $repos);
 
-        $this->updateAdmins($feedId, json_decode($request->post('admins'), true));
+        $this->createAdmins($admins, $authDatabase);
+        $this->updateAdmins($feedId, $admins);
 
         $stmt = $this->dbConnection->prepare('UPDATE feeds SET name = :name WHERE id = :feedID');
         $stmt->execute([
             'name'   => $request->post('name'),
             'feedID' => $feedId,
         ]);
+
+        $this->log('updateFeed', new \DateTime, $user->get('id'), $feedId);
     }
 
     private function updateRepositories($feedId, array $repositories)
@@ -442,13 +450,7 @@ class Feed
             unset($indexedAdmins[$admin['user_id']]);
         }
 
-        $this->removeAdmins($deletedAdmins);
+        $this->removeAdmins($feedId, $deletedAdmins);
         $this->addAdmins($feedId, $indexedAdmins);
-
-        $timestamp = new \DateTime();
-
-        foreach ($indexedAdmins as $admin) {
-            $this->log('addedToFeed', $timestamp, $admin['id'], $feedId);
-        }
     }
 }

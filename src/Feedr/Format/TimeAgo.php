@@ -65,9 +65,9 @@ class TimeAgo
      * Renders the textual date based on the unit texts and the amount
      *
      * @param int   $amount The amount of units
-     * @param array $texts  The textual representations of the units (singlular and plural)
+     * @param array $texts  The textual representations of the units (singular and plural)
      *
-     * @return string The textual represenation of the date
+     * @return string The textual representation of the date
      */
     private function renderTextualDate($amount, $texts)
     {

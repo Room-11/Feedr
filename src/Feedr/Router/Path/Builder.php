@@ -27,7 +27,7 @@ interface Builder
     /**
      * Creates new instance of a path
      *
-     * @param string $path The raw path
+     * @param string $rawPath The raw path
      *
      * @return \Feedr\Router\Path\Path The built path
      */

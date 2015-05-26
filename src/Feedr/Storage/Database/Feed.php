@@ -72,7 +72,7 @@ class Feed
     /**
      * Creates admin accounts
      *
-     * @param array                        $admin        List of admins to create
+     * @param array                        $admins       List of admins to create
      * @param \Feedr\Storage\Database\Auth $authDatabase The auth database handler
      */
     private function createAdmins(array $admins, Auth $authDatabase)
@@ -103,7 +103,7 @@ class Feed
      * Adds admins to a feed
      *
      * @param int   $feedId The id of the feed
-     * @param array $admin  List of admins to add to the feed
+     * @param array $admins List of admins to add to the feed
      */
     private function addAdmins($feedId, array $admins)
     {
@@ -120,7 +120,7 @@ class Feed
     /**
      * Adds admins to a feed
      *
-     * @param array $admin  List of admins to add to the feed
+     * @param array $admins List of admins to add to the feed
      */
     private function removeAdmins(array $admins)
     {
@@ -176,7 +176,7 @@ class Feed
      * Logs feed actions
      *
      * @param string    $type      The type of the entry
-     * @param \DateTime $timestamp The timestano for the entry
+     * @param \DateTime $timestamp The timestamp for the entry
      * @param int       $userId    The user id for the entry
      * @param int       $feedId    The feed id for the entry
      * @param int       $postId    The post id for the entry
@@ -198,21 +198,21 @@ class Feed
 
     public function getFeeds($userId)
     {
-        $query = 'SELECT feeds.id AS feedid, feeds.name, users.id AS userid, users.username';
+        $query = 'SELECT feeds.id AS feedID, feeds.name, users.id AS userID, users.username';
         $query.= ' FROM feeds';
         $query.= ' JOIN admins ON admins.feed_id = feeds.id';
         $query.= ' JOIN users ON users.id = admins.user_id';
-        $query.= ' WHERE admins.user_id = :userid';
+        $query.= ' WHERE admins.user_id = :userID';
         $query.= ' OR admins.feed_id = feeds.id';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'userid' => $userId,
+            'userID' => $userId,
         ]);
 
-        $recordset = $stmt->fetchAll();
+        $recordSet = $stmt->fetchAll();
 
-        if (!$recordset) {
+        if (!$recordSet) {
             return [];
         }
 
@@ -220,21 +220,21 @@ class Feed
 
         $result = [];
 
-        foreach ($recordset as $record) {
-            if (array_key_exists($record['feedid'], $result)) {
-                $result[$record['feedid']]['admins'][$record['userid']] = $record['username'];
+        foreach ($recordSet as $record) {
+            if (array_key_exists($record['feedID'], $result)) {
+                $result[$record['feedID']]['admins'][$record['userID']] = $record['username'];
 
                 continue;
             }
 
-            $ids[] = $record['feedid'];
+            $ids[] = $record['feedID'];
 
-            $result[$record['feedid']] = [
+            $result[$record['feedID']] = [
                 'name'   => $record['name'],
                 'admins' => [
-                    $record['userid'] => $record['username'],
+                    $record['userID'] => $record['username'],
                 ],
-                'posts'    => $this->getPostCount($record['feedid']),
+                'posts'    => $this->getPostCount($record['feedID']),
                 'requests' => 0,
             ];
         }
@@ -259,11 +259,11 @@ class Feed
         $query = 'SELECT count(posts.id)';
         $query.= ' FROM posts, feeds_repositories';
         $query.= ' WHERE posts.feed_repository_id = feeds_repositories.id';
-        $query.= ' AND feeds_repositories.feed_id = :feedid';
+        $query.= ' AND feeds_repositories.feed_id = :feedID';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'feedid' => $feedId,
+            'feedID' => $feedId,
         ]);
 
         return $stmt->fetchColumn(0);
@@ -273,33 +273,33 @@ class Feed
     {
         $query = 'SELECT posts.id AS postid, posts.release_id, posts.avatar_url, posts.version, posts.timestamp, posts.content, posts.url, posts.username, feeds_repositories.repository';
         $query.= ' FROM posts, feeds_repositories';
-        $query.= ' WHERE feeds_repositories.feed_id = :feedid';
+        $query.= ' WHERE feeds_repositories.feed_id = :feedID';
         $query.= ' AND feeds_repositories.id = posts.feed_repository_id';
         $query.= ' ORDER BY posts.timestamp DESC';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'feedid' => $feedId,
+            'feedID' => $feedId,
         ]);
 
-        $recordset = $stmt->fetchAll();
+        $recordSet = $stmt->fetchAll();
 
-        if (!$recordset) {
+        if (!$recordSet) {
             return [];
         }
 
-        foreach ($recordset as $index => $record) {
-            $recordset[$index]['timestamp'] = $timeFormatter->calculate(new \DateTime($record['timestamp']));
+        foreach ($recordSet as $index => $record) {
+            $recordSet[$index]['timestamp'] = $timeFormatter->calculate(new \DateTime($record['timestamp']));
 
-            $recordset[$index]['full_content'] = $record['content'];
-            $recordset[$index]['datetime']     = new \DateTime($record['timestamp']);
+            $recordSet[$index]['full_content'] = $record['content'];
+            $recordSet[$index]['datetime']     = new \DateTime($record['timestamp']);
 
             if (strlen($record['content']) > 250) {
-                $recordset[$index]['content'] = substr($record['content'], 0, 250) . '...';
+                $recordSet[$index]['content'] = substr($record['content'], 0, 250) . '...';
             }
         }
 
-        return $recordset;
+        return $recordSet;
     }
 
     public function getFeed($feedId, TimeAgo $timeFormatter, $log = true)
@@ -324,12 +324,12 @@ class Feed
 
     private function getRepositories($feedId)
     {
-        $query = 'SELECT id, repository, repository_id FROM feeds_repositories WHERE feed_id = :feedid';
+        $query = 'SELECT id, repository, repository_id FROM feeds_repositories WHERE feed_id = :feedID';
         $query.= ' ORDER BY id ASC';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'feedid' => $feedId,
+            'feedID' => $feedId,
         ]);
 
         return $stmt->fetchAll();
@@ -340,11 +340,11 @@ class Feed
         $query = 'SELECT users.id, users.username';
         $query.= ' FROM users';
         $query.= ' JOIN admins ON admins.user_id = users.id';
-        $query.= ' WHERE admins.feed_id = :feedid';
+        $query.= ' WHERE admins.feed_id = :feedID';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'feedid' => $feedId,
+            'feedID' => $feedId,
         ]);
 
         return $stmt->fetchAll();
@@ -352,12 +352,12 @@ class Feed
 
     public function isAdmin($userId, $feedId)
     {
-        $query = 'SELECT COUNT(id) FROM admins WHERE feed_id = :feedid AND user_id = :userid';
+        $query = 'SELECT COUNT(id) FROM admins WHERE feed_id = :feedID AND user_id = :userID';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'feedid' => $feedId,
-            'userid' => $userId,
+            'feedID' => $feedId,
+            'userID' => $userId,
         ]);
 
         return !!$stmt->fetchColumn(0);
@@ -366,6 +366,7 @@ class Feed
     /**
      * Updates a new feed
      *
+     * @param int                             $feedId       The feed ID
      * @param \Feedr\Network\Http\RequestData $request      The request
      * @param \Feedr\Auth\User                $user         The user
      * @param \Feedr\Storage\Database\Auth    $authDatabase The auth database handler
@@ -378,10 +379,10 @@ class Feed
 
         $this->updateAdmins($feedId, json_decode($request->post('admins'), true));
 
-        $stmt = $this->dbConnection->prepare('UPDATE feeds SET name = :name WHERE id = :feedid');
+        $stmt = $this->dbConnection->prepare('UPDATE feeds SET name = :name WHERE id = :feedID');
         $stmt->execute([
             'name'   => $request->post('name'),
-            'feedid' => $feedId,
+            'feedID' => $feedId,
         ]);
     }
 
@@ -392,11 +393,11 @@ class Feed
             $indexedRepos[$repo['id']] = $repo;
         }
 
-        $query = 'SELECT id, repository_id FROM feeds_repositories WHERE feed_id = :feedid';
+        $query = 'SELECT id, repository_id FROM feeds_repositories WHERE feed_id = :feedID';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'feedid' => $feedId,
+            'feedID' => $feedId,
         ]);
 
         $deletedRepos = [];
@@ -422,11 +423,11 @@ class Feed
             $indexedAdmins[$admin['id']] = $admin;
         }
 
-        $query = 'SELECT id, user_id FROM admins WHERE feed_id = :feedid';
+        $query = 'SELECT id, user_id FROM admins WHERE feed_id = :feedID';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'feedid' => $feedId,
+            'feedID' => $feedId,
         ]);
 
         $deletedAdmins = [];

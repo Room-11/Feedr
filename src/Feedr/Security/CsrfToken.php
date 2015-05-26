@@ -53,7 +53,7 @@ class CsrfToken
     ];
 
     /**
-     * Create sinstance
+     * Creates instance
      *
      * @param \Feedr\Storage\KeyValuePair       $storage Instance of a key value storage
      * @param \Feedr\Security\Generator\Builder $factory Instance of a generator builder
@@ -107,6 +107,8 @@ class CsrfToken
      * Generates a new secure CSRF token
      *
      * @return string The generated CSRF token
+     *
+     * @throws \Feedr\Security\Generator\InvalidLengthException
      */
     private function generate()
     {

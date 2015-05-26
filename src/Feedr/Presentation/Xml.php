@@ -37,6 +37,8 @@ class XML extends Template
      *
      * @param string $template The template to render
      * @param array  $data     The data to use in the template
+     *
+     * @return string
      */
     public function render($template, array $data = [])
     {

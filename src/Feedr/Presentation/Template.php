@@ -48,7 +48,7 @@ abstract class Template implements Renderer
      * Disclaimer: I am fully aware this kinda sucks and will bite me in the arse
      *             at some point, so don't bother bugging me about this :-)
      *
-     * @param mixed The key of which to get the data
+     * @param mixed $key The key of which to get the data
      *
      * @return mixed The value which belongs to the key provided
      */
@@ -64,7 +64,7 @@ abstract class Template implements Renderer
     /**
      * Magically check whether magic variables exist in a magical way using magic
      *
-     * @param mixed The key to check
+     * @param mixed $key The key to check
      *
      * @return boolean true when tha magical thing is set
      */

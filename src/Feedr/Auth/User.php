@@ -60,17 +60,17 @@ class User
     /**
      * Tries to log the user in
      *
-     * @param array  $userdata The userdata
+     * @param array  $userData The user data
      * @param string $ip       The IP address
      *
      * @return boolean True when the user successfully authenticated
      */
-    public function login(array $userdata, $ip)
+    public function login(array $userData, $ip)
     {
-        if (array_key_exists('id', $userdata)) {
-            $this->sessionStorage->set('user', $userdata);
+        if (array_key_exists('id', $userData)) {
+            $this->sessionStorage->set('user', $userData);
 
-            $this->database->login($userdata['id'], $userdata['login'], $ip);
+            $this->database->login($userData['id'], $userData['login'], $ip);
 
             return true;
         }
@@ -95,8 +95,8 @@ class User
      */
     public function get($key)
     {
-        $userdata = $this->sessionStorage->get('user');
+        $userData = $this->sessionStorage->get('user');
 
-        return $userdata[$key];
+        return $userData[$key];
     }
 }

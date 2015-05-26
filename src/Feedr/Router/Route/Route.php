@@ -160,23 +160,23 @@ class Route implements AccessPoint
     /**
      * Checks whether the request matches the route
      *
-     * @param array $routeParts   The route parts
-     * @param array $requestParts The request parts
+     * @param \Feedr\Router\Path\Segment[] $segments     The segments
+     * @param array                        $requestParts The request parts
      *
      * @return boolean True when the request matched the route
      */
-    private function doesMatch(array $routeParts, array $requestParts)
+    private function doesMatch(array $segments, array $requestParts)
     {
-        if (count($requestParts) > count($routeParts)) {
+        if (count($requestParts) > count($segments)) {
             return false;
         }
 
-        foreach ($routeParts as $index => $routePart) {
-            if (!$routePart->isVariable() && !$this->doesStaticSegmentMatch($routePart, $requestParts, $index)) {
+        foreach ($segments as $index => $segment) {
+            if (!$segment->isVariable() && !$this->doesStaticSegmentMatch($segment, $requestParts, $index)) {
                 return false;
-            } else if (!$routePart->isOptional() && !$this->isRequiredSegmentSet($routePart, $requestParts, $index)) {
+            } else if (!$segment->isOptional() && !$this->isRequiredSegmentSet($segment, $requestParts, $index)) {
                 return false;
-            } else if ($routePart->isVariable() && !$this->areRequirementsMet($routePart, $requestParts, $index)) {
+            } else if ($segment->isVariable() && !$this->areRequirementsMet($segment, $requestParts, $index)) {
                 return false;
             }
         }
@@ -187,58 +187,58 @@ class Route implements AccessPoint
     /**
      * Checks whether the static segment matches
      *
-     * @param \Feedr\Router\Path\Segment $routepart    The route part
-     * @param array                           $requestParts The request parts
-     * @param int                             $index        The current index
+     * @param \Feedr\Router\Path\Segment $segment      The segment
+     * @param array                      $requestParts The request parts
+     * @param int                        $index        The current index
      *
      * @return boolean True when the static part matches
      */
-    private function doesStaticSegmentMatch(Segment $routePart, array $requestParts, $index)
+    private function doesStaticSegmentMatch(Segment $segment, array $requestParts, $index)
     {
-        return isset($requestParts[$index]) && $routePart->getValue() === $requestParts[$index];
+        return isset($requestParts[$index]) && $segment->getValue() === $requestParts[$index];
     }
 
     /**
      * Checks whether the required segment matches
      *
-     * @param \Feedr\Router\Path\Segment $routepart    The route part
-     * @param array                           $requestParts The request parts
-     * @param int                             $index        The current index
+     * @param \Feedr\Router\Path\Segment $segment      The segment
+     * @param array                      $requestParts The request parts
+     * @param int                        $index        The current index
      *
      * @return boolean True when the required segment matches
      */
-    private function isRequiredSegmentSet(Segment $routePart, array $requestParts, $index)
+    private function isRequiredSegmentSet(Segment $segment, array $requestParts, $index)
     {
-        return !empty($requestParts[$index]) || array_key_exists($routePart->getValue(), $this->defaults);
+        return !empty($requestParts[$index]) || array_key_exists($segment->getValue(), $this->defaults);
     }
 
     /**
      * Checks whether the requirements for the segment are met
      *
-     * @param \Feedr\Router\Path\Segment $routepart    The route part
-     * @param array                           $requestParts The request parts
-     * @param int                             $index        The current index
+     * @param \Feedr\Router\Path\Segment $segment      The segment
+     * @param array                      $requestParts The request parts
+     * @param int                        $index        The current index
      *
      * @return boolean True when the requirements match
      */
-    private function areRequirementsMet(Segment $routePart, array $requestParts, $index)
+    private function areRequirementsMet(Segment $segment, array $requestParts, $index)
     {
-        if (!array_key_exists($routePart->getValue(), $this->requirements)) {
+        if (!array_key_exists($segment->getValue(), $this->requirements)) {
             return true;
         }
 
-        return preg_match('/^' . $this->requirements[$routePart->getValue()] . '$/', $requestParts[$index]) === 1;
+        return preg_match('/^' . $this->requirements[$segment->getValue()] . '$/', $requestParts[$index]) === 1;
     }
 
     /**
      * Processes the variables in the URI path
      *
-     * @param array $routeParts   The route parts
-     * @param array $requestParts The request parts
+     * @param \Feedr\Router\Path\Segment[] $segments     The segments
+     * @param array                        $requestParts The request parts
      */
-    private function processVariables(array $routeParts, array $requestParts)
+    private function processVariables(array $segments, array $requestParts)
     {
-        foreach ($this->path->getParts() as $index => $pathPart) {
+        foreach ($segments as $index => $pathPart) {
             if (!$pathPart->isVariable()) {
                 continue;
             }
@@ -250,18 +250,20 @@ class Route implements AccessPoint
     /**
      * Processes a single URI path variable
      *
-     * @param \Feedr\Router\Path\Segment $routepart    The route part
-     * @param array                           $requestParts The request parts
-     * @param int                             $index        The current index
+     * @param \Feedr\Router\Path\Segment $segment      The segment
+     * @param array                      $requestParts The request parts
+     * @param int                        $index        The current index
      *
      * @return boolean True when the static part matches
      */
-    private function processVariable(Segment $routePart, array $requestParts, $index)
+    private function processVariable(Segment $segment, array $requestParts, $index)
     {
         if (isset($requestParts[$index])) {
             return $requestParts[$index];
-        } else if (array_key_exists($routePart->getValue(), $this->defaults)) {
-            return $this->defaults[$routePart->getValue()];
+        } else if (array_key_exists($segment->getValue(), $this->defaults)) {
+            return $this->defaults[$segment->getValue()];
         }
+
+        return false;
     }
 }

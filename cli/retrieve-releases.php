@@ -54,13 +54,13 @@ function postExists(\PDO $dbConnection, $feedId, $releaseId) {
     $query = 'SELECT count(posts.id)';
     $query.= ' FROM posts';
     $query.= ' JOIN feeds_repositories ON feeds_repositories.id = posts.feed_repository_id';
-    $query.= ' WHERE feeds_repositories.feed_id = :feedid';
-    $query.= ' AND release_id = :releaseid';
+    $query.= ' WHERE feeds_repositories.feed_id = :feedID';
+    $query.= ' AND release_id = :releaseID';
 
     $stmt = $dbConnection->prepare($query);
     $stmt->execute([
-        'feedid'    => $feedId,
-        'releaseid' => $releaseId,
+        'feedID'    => $feedId,
+        'releaseID' => $releaseId,
     ]);
 
     return (bool)$stmt->fetchColumn(0);
@@ -70,11 +70,11 @@ function addPost(\PDO $dbConnection, $feedRepositoryId, array $release) {
     $query = 'INSERT INTO posts';
     $query.= ' (release_id, feed_repository_id, avatar_url, version, url, timestamp, content, username)';
     $query.= ' VALUES';
-    $query.= ' (:releaseid, :feed_repository_id, :avatar_url, :version, :url, :timestamp, :content, :username)';
+    $query.= ' (:releaseID, :feed_repository_id, :avatar_url, :version, :url, :timestamp, :content, :username)';
 
     $stmt = $dbConnection->prepare($query);
     $stmt->execute([
-        'releaseid'          => $release['id'],
+        'releaseID'          => $release['id'],
         'feed_repository_id' => $feedRepositoryId,
         'avatar_url'         => $release['author']['avatar_url'],
         'version'            => $release['tag_name'],
@@ -91,12 +91,12 @@ function logAddition(\PDO $dbConnection, $feedId, $postId, \DateTime $timestamp)
     $query = 'INSERT INTO log';
     $query.= ' (feed_id, post_id, timestamp, type)';
     $query.= ' VALUES';
-    $query.= ' (:feedid, :postid, :timestamp, :type)';
+    $query.= ' (:feedID, :postID, :timestamp, :type)';
 
     $stmt = $dbConnection->prepare($query);
     $stmt->execute([
-        'feedid'    => $feedId,
-        'postid'    => $postId,
+        'feedID'    => $feedId,
+        'postID'    => $postId,
         'timestamp' => $timestamp->format('Y-m-d H:i:s'),
         'type'      => 'newPost',
     ]);

@@ -14,7 +14,7 @@ $router->get('atom-feed', '/atom/{id}/{title}/feed.xml', function(AccessPoint $r
     ]);
 });
 
-$router->get('login', '/login', function(AccessPoint $route) use ($htmlTemplate, $github, $request, $user) {
+$router->get('login', '/login', function() use ($htmlTemplate, $github, $request, $user) {
     if ($request->get('code')) {
         $github->requestAccessToken($request->get('code'));
 
@@ -32,7 +32,7 @@ $router->get('login', '/login', function(AccessPoint $route) use ($htmlTemplate,
 });
 
 if (!$user->isLoggedIn()) {
-    $router->get('home', '/', function(AccessPoint $route) use ($request) {
+    $router->get('home', '/', function() use ($request) {
         header('Location: ' . $request->getBaseUrl() . '/login');
         exit;
     });
@@ -40,7 +40,7 @@ if (!$user->isLoggedIn()) {
     return;
 }
 
-$router->post('logout', '/logout', function(AccessPoint $route) use ($csrfToken, $request, $user) {
+$router->post('logout', '/logout', function() use ($csrfToken, $request, $user) {
     if ($csrfToken->validate($request->post('csrf-token'))) {
         $user->logout();
     }
@@ -49,7 +49,7 @@ $router->post('logout', '/logout', function(AccessPoint $route) use ($csrfToken,
     exit;
 });
 
-$router->get('home', '/', function(AccessPoint $route) use ($htmlTemplate, $csrfToken, $user, $dbConnection) {
+$router->get('home', '/', function() use ($htmlTemplate, $csrfToken, $user, $dbConnection) {
     $feedDatabase = new \Feedr\Storage\Database\Feed($dbConnection);
     $logDatabase  = new \Feedr\Storage\Database\Log($dbConnection);
 
@@ -61,8 +61,8 @@ $router->get('home', '/', function(AccessPoint $route) use ($htmlTemplate, $csrf
     $posts = [];
 
     if (count($feeds)) {
-        $firstFeed = reset($feeds);
-        $firstKey  = key($feeds);
+        reset($feeds);
+        $firstKey = key($feeds);
 
         $posts = $feedDatabase->getPosts($firstKey, $timeAgo);
     }
@@ -76,14 +76,14 @@ $router->get('home', '/', function(AccessPoint $route) use ($htmlTemplate, $csrf
     ]);
 });
 
-$router->get('create', '/create', function(AccessPoint $route) use ($htmlTemplate, $csrfToken, $user) {
+$router->get('create', '/create', function() use ($htmlTemplate, $csrfToken, $user) {
     return $htmlTemplate->render('create.phtml', [
         'csrfToken' => $csrfToken,
         'user'      => $user,
     ]);
 });
 
-$router->post('create', '/create', function(AccessPoint $route) use ($request, $dbConnection, $user) {
+$router->post('create', '/create', function() use ($request, $dbConnection, $user) {
     $authDatabase = new \Feedr\Storage\Database\Auth($dbConnection);
     $feedDatabase = new \Feedr\Storage\Database\Feed($dbConnection);
 
@@ -93,7 +93,7 @@ $router->post('create', '/create', function(AccessPoint $route) use ($request, $
     exit;
 });
 
-$router->get('search-repository', '/search-repository', function(AccessPoint $route) use ($request, $github) {
+$router->get('search-repository', '/search-repository', function() use ($request, $github) {
     if (filter_var($request->get('repo'), FILTER_VALIDATE_URL) !== false || substr_count($request->get('repo'), '/') === 1) {
         $parts = explode('/', $request->get('repo'));
 
@@ -108,7 +108,7 @@ $router->get('search-repository', '/search-repository', function(AccessPoint $ro
     return json_encode($results['items']);
 });
 
-$router->get('get-releases', '/get-releases', function(AccessPoint $route) use ($github, $request) {
+$router->get('get-releases', '/get-releases', function() use ($github, $request) {
     $releases = [];
     $repos    = $request->get('repos');
     $ids      = array_column($repos, 'fullname');
@@ -140,11 +140,11 @@ $router->get('get-releases', '/get-releases', function(AccessPoint $route) use (
     return json_encode($releases);
 });
 
-$router->get('search-user', '/search-user', function(AccessPoint $route) use ($request, $github) {
+$router->get('search-user', '/search-user', function() use ($request, $github) {
     return $github->request('/search/users?q=' . urlencode($request->get('user')));
 });
 
-$router->get('edit-feed', '/feeds/{id}/{name}', function(AccessPoint $route) use ($htmlTemplate, $csrfToken, $user, $dbConnection) {
+$router->get('edit-feed', '/feeds/{id}/{name}', function(AccessPoint $route) use ($request, $htmlTemplate, $csrfToken, $user, $dbConnection) {
     $feedDatabase = new \Feedr\Storage\Database\Feed($dbConnection);
 
     if (!$feedDatabase->isAdmin($user->get('id'), $route->getVariable('id'))) {

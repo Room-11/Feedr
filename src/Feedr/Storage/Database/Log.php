@@ -46,13 +46,13 @@ class Log
         $query = 'SELECT log.id AS logid, log.type, log.timestamp, feeds.id AS feedid, feeds.name AS feedname';
         $query.= ' FROM log';
         $query.= ' RIGHT JOIN feeds ON feeds.id = log.feed_id';
-        $query.= ' WHERE log.user_id = :userid';
+        $query.= ' WHERE log.user_id = :userID';
         $query.= ' ORDER BY log.id DESC';
         $query.= ' LIMIT 10 OFFSET 0';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'userid'   => $userId,
+            'userID'   => $userId,
         ]);
 
         $userLogs = $stmt->fetchAll();
@@ -62,12 +62,12 @@ class Log
         $query.= ' WHERE posts.id = log.post_id';
         $query.= ' AND feeds_repositories.id = posts.feed_repository_id';
         $query.= ' AND admins.feed_id = feeds_repositories.feed_id';
-        $query.= ' AND admins.user_id = :userid';
+        $query.= ' AND admins.user_id = :userID';
         $query.= ' ORDER BY log.id DESC LIMIT 10 OFFSET 0';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'userid'   => $userId,
+            'userID'   => $userId,
         ]);
 
         $postLogs = $stmt->fetchAll();
@@ -76,30 +76,30 @@ class Log
         $query.= ' FROM log, feeds_repositories, admins';
         $query.= ' WHERE feeds_repositories.feed_id = log.feed_id';
         $query.= ' AND admins.feed_id = feeds_repositories.feed_id';
-        $query.= ' AND admins.user_id = :userid';
+        $query.= ' AND admins.user_id = :userID';
         $query.= ' ORDER BY log.id DESC';
         $query.= ' LIMIT 10 OFFSET 0';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'userid'   => $userId,
+            'userID'   => $userId,
         ]);
 
         $feedLogs = $stmt->fetchAll();
 
-        $recordset = array_merge($userLogs, $postLogs, $feedLogs);
+        $recordSet = array_merge($userLogs, $postLogs, $feedLogs);
 
-        if (!$recordset) {
+        if (!$recordSet) {
             return [];
         }
 
-        usort($recordset, function($a, $b) {
+        usort($recordSet, function($a, $b) {
             return $b['logid'] - $a['logid'];
         });
 
         $result = [];
 
-        foreach ($recordset as $index => $record) {
+        foreach ($recordSet as $index => $record) {
             $record['timestamp'] = $timeFormatter->calculate(new \DateTime($record['timestamp']));
 
             $result[$record['logid']] = $record;

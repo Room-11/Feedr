@@ -80,7 +80,7 @@ class Auth
             'id' => $id,
         ]);
 
-        return !!$stmt->fetchColumn(0);
+        return (bool)$stmt->fetchColumn(0);
     }
 
     /**
@@ -106,11 +106,11 @@ class Auth
      */
     private function log($id, $ip)
     {
-        $query = 'INSERT INTO auth_log (user_id, ip, timestamp) VALUES (:userid, :ip, :timestamp)';
+        $query = 'INSERT INTO auth_log (user_id, ip, timestamp) VALUES (:userID, :ip, :timestamp)';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
-            'userid'    => $id,
+            'userID'    => $id,
             'ip'        => $ip,
             'timestamp' => (new \DateTime())->setTimezone(new \DateTimeZone('UTC'))->format('Y-m-d H:i:s.u'),
         ]);

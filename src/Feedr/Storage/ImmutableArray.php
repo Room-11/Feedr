@@ -57,6 +57,8 @@ class ImmutableArray implements ImmutableKeyValue, \Iterator
     /**
      * Checks whether the key is in the storage
      *
+     * @param string $key The key of which the validity will be checked
+     *
      * @return boolean true when the key is valid
      */
     public function isKeyValid($key)

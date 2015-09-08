@@ -19,12 +19,10 @@ use Feedr\Network\Http\Request;
 use Feedr\Router\Factory as RouterFactory;
 use Feedr\Presentation\Html;
 use Feedr\Presentation\Xml;
-use Feedr\Network\Router;
-use Feedr\Network\RouteFactory;
+use Feedr\Router\NotFoundException;
 
 use OAuth\ServiceFactory;
 use OAuth\Common\Http\Uri\UriFactory;
-use OAuth\OAuth2\Service\GitHub;
 use OAuth\Common\Storage\Session as OauthSession;
 use OAuth\Common\Consumer\Credentials;
 

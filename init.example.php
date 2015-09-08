@@ -1,6 +1,6 @@
 <?php
 /**
- * Example file for settin up the environment specific configuration
+ * Example file for setting up the environment specific configuration
  *
  * Note: you probably don't want to use the configuration in your project
  * directly, but instead you want to:
@@ -17,8 +17,6 @@
  * @version    1.0.0
  */
 namespace Feedr;
-
-use Feedr\Network\Router;
 
 /**
  * Setup error reporting

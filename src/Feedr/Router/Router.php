@@ -103,8 +103,8 @@ class Router
      *
      * @param \Feedr\Network\Http\RequestData $request The request data
      *
-     * @return \Feedr\Router\AccessPoint                The matching route
-     * @throws \Feedr\Router\UnsupportedMethodException When the request contains an unspported method
+     * @return \Feedr\Router\Route\AccessPoint          The matching route
+     * @throws \Feedr\Router\UnsupportedMethodException When the request contains an unsupported method
      * @throws \Feedr\Router\NotFoundException          When no route matches
      */
     public function getRoute(RequestData $request)
@@ -116,6 +116,7 @@ class Router
         }
 
         foreach ($this->routes[$request->getMethod()] as $route) {
+            /** @var \Feedr\Router\Route\AccessPoint $route */
             if ($route->matchesRequest($request)) {
                 return $route;
             }

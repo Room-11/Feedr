@@ -29,7 +29,7 @@ class Mcrypt implements Generator
     /**
      * Creates instance
      *
-     * @throws \Feedr\Security\Generator\UnsupportedCryptoException When mcrypt is not installed
+     * @throws \Feedr\Security\Generator\UnsupportedAlgorithmException When mcrypt is not installed
      */
     public function __construct()
     {

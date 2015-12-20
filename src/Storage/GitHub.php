@@ -70,6 +70,19 @@ class GitHub
     }
 
     /**
+     * Proxies the GitHub service method calls
+     *
+     * @param string $method The name of the method being called
+     * @param array  $args   The arguments to pass to through
+     *
+     * @return mixed
+     */
+    public function __call(string $method, array $args)
+    {
+        return call_user_func_array(array($this->getService(), $method), $args);
+    }
+
+    /**
      * Lazy loads the Github service
      *
      * @return \OAuth\OAuth2\Service\GitHub The GitHub service

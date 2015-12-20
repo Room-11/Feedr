@@ -11,3 +11,12 @@
 .products-list .product-info {
     margin-left: 27px;
 }
+
+.direct-chat-text ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.contacts-list-info {
+    margin-left:  0;
+}

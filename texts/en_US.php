@@ -23,8 +23,8 @@ $texts = [
 
     'footer.version.title'                                          => 'Version',
     'footer.theme.author'                                           => 'Theme by <a href="http://almsaeedstudio.com/" target="_blank">Almsaeed Studio</a>.',
-    'footer.theme.license'                                          => 'MTI licensed.',
-    'footer.project.github.%'                                       => 'Fork me on <a href="%s" target="_blank">GitHub</a>',
+    'footer.theme.license'                                          => 'MIT licensed.',
+    'footer.project.github.%'                                       => 'Fork me on <a href="%s" target="_blank">GitHub</a>.',
 
     'page.not-found.title'                                          => '404',
     'page.not-found.sub-title'                                      => 'Oops! Page not found.',

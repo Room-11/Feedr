@@ -32,11 +32,6 @@ use OAuth\Common\Consumer\Credentials;
 require __DIR__ . '/vendor/autoload.php';
 
 /**
- * Bootstrap the library
- */
-require_once __DIR__ . '/src/Feedr/bootstrap.php';
-
-/**
  * Setup the environment
  */
 require_once __DIR__ . '/init.deployment.php';

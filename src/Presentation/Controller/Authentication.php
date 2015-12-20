@@ -18,7 +18,7 @@ use CodeCollab\Http\Response\Response;
 use CodeCollab\Http\Response\StatusCode;
 use CodeCollab\Http\Request\Request;
 use CodeCollab\Template\Html;
-use Feedr\Form\Login as LoginForm;
+use Feedr\Storage\GitHub;
 use Feedr\Form\Logout as LogoutForm;
 use CodeCollab\Authentication\Authentication as User;
 
@@ -51,19 +51,15 @@ class Authentication
      * Renders the login page
      *
      * @param \CodeCollab\Template\Html $template A HTML template renderer
-     * @param \Feedr\Form\Login          $form     The login for
+     * @param \Feedr\Storage\GitHub     $github   The GitHub storage
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */
-    public function login(Html $template, LoginForm $form): Response
+    public function login(Html $template, GitHub $github): Response
     {
         $this->response->setContent($template->renderPage('/authentication/login.phtml', [
-            'form' => $form,
+            'url' => $github->getAuthorizationUri(),
         ]));
-
-        if ($form->isValidated()) {
-            $this->response->setStatusCode(StatusCode::UNAUTHORIZED);
-        }
 
         return $this->response;
     }
@@ -71,28 +67,17 @@ class Authentication
     /**
      * Handles the login form
      *
-     * @param \CodeCollab\Template\Html                 $template A HTML template renderer
-     * @param \Feedr\Form\Login                         $form     The login form
      * @param \CodeCollab\Http\Request\Request          $request  The request object
      * @param \CodeCollab\Authentication\Authentication $user     The authentication object
+     * @param \Feedr\Storage\GitHub                     $github   The GitHub storage
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */
-    public function doLogin(Html $template, LoginForm $form, Request $request, User $user): Response
+    public function doLogin(Request $request, User $user, GitHub $github): Response
     {
-        $form->bindRequest($request);
+        $github->requestAccessToken($request->get('code'));
 
-        // Hardcoded user info. Normally this would be retrieved from the database.
-        // This contains a user with username + password of demo + demo.
-        $userInfo = [
-            'username' => 'demo',
-            'name'     => 'Demo Demo',
-            'hash'     => '$2y$14$hPOMx1/RiQHriUVLgst0mOiZj1CyE7ziXk9LNf3UgZxsNuST.xnpe',
-        ];
-
-        if (!$form->isValid() || !$user->logIn($form['password']->getValue(), $userInfo['hash'], $userInfo)) {
-            return $this->login($template, $form, $request);
-        }
+        $user->logInWithOauth($github->request('user'));
 
         $this->response->setStatusCode(StatusCode::FOUND);
         $this->response->addHeader('Location', $request->getBaseUrl());
@@ -103,7 +88,7 @@ class Authentication
     /**
      * Handles the logout form
      *
-     * @param \Demo\Form\Logout                         $form    The logout form
+     * @param \Feedr\Form\Logout                        $form    The logout form
      * @param \CodeCollab\Http\Request\Request          $request The request object
      * @param \CodeCollab\Authentication\Authentication $user    The authentication object
      *

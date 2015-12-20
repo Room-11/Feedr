@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /**
- * Login form
+ * Logout form
  *
  * PHP version 7.0
  *
@@ -19,13 +19,13 @@ use CodeCollab\Form\Validation\Required as RequiredValidator;
 use CodeCollab\Form\Validation\Match as MatchValidator;
 
 /**
- * Login form
+ * Logout form
  *
  * @category   Feedr
  * @package    Form
  * @author     Pieter Hordijk <info@pieterhordijk.com>
  */
-class Login extends BaseForm
+class Logout extends BaseForm
 {
     /**
      * Sets up the fields of the form

@@ -22,7 +22,7 @@ $router
 if (!$user->isLoggedIn()) {
     $router
         ->get('/', ['Feedr\Presentation\Controller\Authentication', 'login'])
-        ->post('/', ['Feedr\Presentation\Controller\Authentication', 'doLogin'])
+        ->get('/login', ['Feedr\Presentation\Controller\Authentication', 'doLogin'])
     ;
 } else {
     $router

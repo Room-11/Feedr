@@ -15,13 +15,16 @@
       ),
       '/' => 
       array (
-        0 => 'Feedr\\Presentation\\Controller\\Authentication',
-        1 => 'login',
+        0 => 'Feedr\\Presentation\\Controller\\Index',
+        1 => 'index',
       ),
-      '/login' => 
+    ),
+    'POST' => 
+    array (
+      '/logout' => 
       array (
         0 => 'Feedr\\Presentation\\Controller\\Authentication',
-        1 => 'doLogin',
+        1 => 'doLogout',
       ),
     ),
   ),

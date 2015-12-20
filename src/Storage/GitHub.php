@@ -94,6 +94,7 @@ class GitHub
             $storage        = new OauthSession();
             $uriFactory     = new UriFactory();
             $currentUri     = $uriFactory->createFromSuperGlobalArray($_SERVER);
+            $currentUri->setPath('/login');
             $currentUri->setQuery('');
             $credentials = new Credentials(
                 $this->key,

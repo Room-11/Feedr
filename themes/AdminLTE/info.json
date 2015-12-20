@@ -1,0 +1,19 @@
+{
+  "name": "AdminLTE",
+  "description": "2016 Default theme for the Feedr project",
+  "version": "1.0.0",
+  "website": "https://www.almsaeedstudio.com/preview",
+  "authors": [
+    {
+      "name": "Pieter Hordijk",
+      "role": "Feedr adaption",
+      "website": "https://pieterhordijk.com",
+      "email": "info@pieterhordijk.com"
+    },
+    {
+      "name": "almasaeed2010",
+      "role": "Lead designer",
+      "website": "https://github.com/almasaeed2010/AdminLTE"
+    }
+  ]
+}

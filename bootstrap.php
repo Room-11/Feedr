@@ -23,7 +23,6 @@ use FastRoute\DataGenerator\GroupCountBased as RouteDataGenerator;
 use FastRoute\Dispatcher\GroupCountBased as RouteDispatcher;
 use CodeCollab\Router\Injector;
 use CodeCollab\Router\FrontController;
-use CodeCollab\Theme\Theme;
 use CodeCollab\I18n\FileTranslator;
 use Minifine\Factory as MinifineFactory;
 use Auryn\Injector as Auryn;

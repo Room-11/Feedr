@@ -1,0 +1,19 @@
+<div class="content-wrapper <?php if (!$this->user->isLoggedIn()) echo 'full-width'; ?>">
+    <section class="content">
+        <div class="error-page">
+            <h1 class="headline text-yellow"> <?= $this->translate('page.not-found.title'); ?></h1>
+            <div class="error-content">
+                <h3><i class="fa fa-warning text-yellow"></i> <?= $this->translate('page.not-found.sub-title'); ?></h3>
+                <p><?= $this->translate('page.not-found.description'); ?></p>
+                <form class="search-form">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="<?= $this->translate('page.not-found.search.placeholder'); ?>">
+                        <div class="input-group-btn">
+                            <button type="submit" name="submit" class="btn btn-warning btn-flat"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>

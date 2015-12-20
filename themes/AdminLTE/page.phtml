@@ -11,13 +11,24 @@
             '/css/font-awesome.min.css',
             '/css/ionicons.min.css',
             '/css/AdminLTE.min.css',
+            '/css/AdminLTE.custom.css',
         ], '/css/min.css'); ?>
     </head>
-    <body class="hold-transition login-page">
-        <?= $content; ?>
+    <body class="hold-transition login-page hold-transition skin-blue sidebar-mini">
+        <?php if ($this->user->isLoggedIn()) { ?>
+            <div class="wrapper">
+                <?= $this->render('/blocks/header.phtml'); ?>
+                <?= $this->render('/blocks/sidebar.phtml'); ?>
+                <?= $content; ?>
+                <?= $this->render('/blocks/footer.phtml'); ?>
+            </div>
+        <?php } else { ?>
+            <?= $content; ?>
+        <?php } ?>
         <?= $this->minifier->js([
             '/js/jquery-2.1.4.min.js',
             '/js/bootstrap.min.js',
+            '/js/AdminLTE.min.js',
         ], '/js/min.js'); ?>
     </body>
 </html>

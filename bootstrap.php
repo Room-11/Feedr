@@ -111,12 +111,12 @@ $auryn->define('CodeCollab\Theme\Theme', [':themePath' => __DIR__ . '/themes', '
 $auryn->define('Feedr\Presentation\Template\Html', [':basePage' => '/page.phtml']);
 $auryn->alias('CodeCollab\CsrfToken\Token', 'CodeCollab\CsrfToken\Handler');
 $auryn->alias('CodeCollab\Authentication\Authentication', 'CodeCollab\Authentication\User');
-$auryn->alias('CodeCollab\CsrfToken\Storage\Storage', 'Demo\Storage\TokenSession');
+$auryn->alias('CodeCollab\CsrfToken\Storage\Storage', 'Feedr\Storage\TokenSession');
 $auryn->alias('CodeCollab\Http\Session\Session', 'CodeCollab\Http\Session\Native');
 $auryn->alias('CodeCollab\CsrfToken\Generator\Generator', 'CodeCollab\CsrfToken\Generator\RandomBytes32');
 $auryn->alias('CodeCollab\I18n\Translator', 'CodeCollab\I18n\FileTranslator');
 $auryn->alias('CodeCollab\Theme\Loader', 'CodeCollab\Theme\Theme');
-$auryn->alias('CodeCollab\Template\Html', 'Demo\Presentation\Template\Html');
+$auryn->alias('CodeCollab\Template\Html', 'Feedr\Presentation\Template\Html');
 $auryn->alias('CodeCollab\Encryption\Encryptor', 'CodeCollab\Encryption\Defuse\Encryptor');
 $auryn->alias('CodeCollab\Encryption\Decryptor', 'CodeCollab\Encryption\Defuse\Decryptor');
 

@@ -21,12 +21,12 @@ $router
 
 if (!$user->isLoggedIn()) {
     $router
-        ->get('/', ['Feedr\Presentation\Controller\User', 'login'])
-        ->post('/', ['Feedr\Presentation\Controller\User', 'doLogin'])
+        ->get('/', ['Feedr\Presentation\Controller\Authentication', 'login'])
+        ->post('/', ['Feedr\Presentation\Controller\Authentication', 'doLogin'])
     ;
 } else {
     $router
         ->get('/', ['Feedr\Presentation\Controller\Index', 'index'])
-        ->post('/logout', ['Feedr\Presentation\Controller\User', 'doLogout'])
+        ->post('/logout', ['Feedr\Presentation\Controller\Authentication', 'doLogout'])
     ;
 }

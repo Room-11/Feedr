@@ -1,0 +1,20 @@
+<?php declare(strict_types=1); ?>
+<div class="login-box">
+    <div class="login-logo">
+        <b><?= $this->translate('site.title'); ?></b> <?= $this->translate('page.login.title'); ?>
+    </div>
+    <div class="login-box-body">
+        <form action="/login" method="post">
+            <input type="hidden" name="csrfToken" value="<?= $this->form['csrfToken']->getValue(); ?>">
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-github"></i> <?= $this->translate('page.login.button'); ?></button>
+                </div>
+            </div>
+        </form>
+
+        <div class="social-auth-links text-center">
+            <p><?= $this->translate('page.login.privacy'); ?></p>
+        </div>
+    </div>
+</div>

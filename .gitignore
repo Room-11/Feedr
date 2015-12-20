@@ -1,3 +1,4 @@
 init.*.php
 vendor
 .idea
+encryption.key

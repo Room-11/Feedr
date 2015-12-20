@@ -1,3 +1,13 @@
 .content-wrapper.full-width {
     margin-left: 0;
 }
+
+.products-list .product-img i.fa {
+    font-size: 20px;
+    top: 5px;
+    position: relative;
+}
+
+.products-list .product-info {
+    margin-left: 27px;
+}

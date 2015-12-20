@@ -1,0 +1,23 @@
+<?php declare(strict_types=1); ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title><?= $this->translate('site.title'); ?></title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <?= $this->minifier->css([
+            '/css/bootstrap.min.css',
+            '/css/font-awesome.min.css',
+            '/css/ionicons.min.css',
+            '/css/AdminLTE.min.css',
+        ], '/css/min.css'); ?>
+    </head>
+    <body class="hold-transition login-page">
+        <?= $content; ?>
+        <?= $this->minifier->js([
+            '/js/jquery-2.1.4.min.js',
+            '/js/bootstrap.min.js',
+        ], '/js/min.js'); ?>
+    </body>
+</html>

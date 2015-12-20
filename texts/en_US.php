@@ -14,6 +14,11 @@ $texts = [
     'page.not-found.description'                                    => 'We could not find the page you were looking for. Are you sure you have access to the page? Try to find a feed by using the search form.',
     'page.not-found.search.placeholder'                             => 'Search',
 
+    'page.error.title'                                              => 'Err..',
+    'page.error.sub-title'                                          => 'Eeeeek! Something went wrong.',
+    'page.error.description'                                        => 'This shouldn\'t happen. No idea what happened. Try applying palm to face or try to find a feed by using the search form.',
+    'page.error.search.placeholder'                                 => 'Search',
+
     'page.login.title'                                              => 'Login',
     'page.login.button'                                             => 'Sign In using GitHub',
     'page.login.privacy'                                            => 'We only use GitHub data to authenticate you and retrieve your GitHub id.',

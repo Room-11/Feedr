@@ -4,6 +4,10 @@ $texts = [
     'site.title'                                                    => 'Feedr',
     'site.version'                                                  => '2.0.0',
 
+    'nav.hamburger.screenreader'                                    => 'Toggle navigation',
+    'nav.user.member-since.%'                                       => 'Member since %s',
+    'nav.logout.submit'                                             => 'Sign out',
+
     'footer.version.title'                                          => 'Version',
     'footer.theme.author'                                           => 'Theme by <a href="http://almsaeedstudio.com/" target="_blank">Almsaeed Studio</a>.',
     'footer.theme.license'                                          => 'MTI licensed.',

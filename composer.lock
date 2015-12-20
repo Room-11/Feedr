@@ -1,23 +1,486 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4fea2e8f5e1d528d42146b0e20e7ad11",
+    "hash": "edcf80122b9e3749ea56cb7d919c8489",
+    "content-hash": "2657d36b01864477b811dc951faad70e",
     "packages": [
         {
-            "name": "lusitanian/oauth",
-            "version": "v0.3.5",
+            "name": "codecollab/authentication",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Lusitanian/PHPoAuthLib.git",
-                "reference": "ac5a1cd5a4519143728dce2213936eea302edf8a"
+                "url": "https://github.com/CodeCollab/Authentication.git",
+                "reference": "51f38210ce858c3049bfa58351e372e918cacf1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Lusitanian/PHPoAuthLib/zipball/ac5a1cd5a4519143728dce2213936eea302edf8a",
-                "reference": "ac5a1cd5a4519143728dce2213936eea302edf8a",
+                "url": "https://api.github.com/repos/CodeCollab/Authentication/zipball/51f38210ce858c3049bfa58351e372e918cacf1e",
+                "reference": "51f38210ce858c3049bfa58351e372e918cacf1e",
+                "shasum": ""
+            },
+            "require": {
+                "codecollab/http": "dev-master",
+                "php": ">=7.0-dev"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeCollab\\Authentication\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "See the LICENSE file"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Authentication package of the CodeCollab project",
+            "homepage": "https://github.com/CodeCollab/Authentication",
+            "keywords": [
+                "Authentication",
+                "codecollab",
+                "security"
+            ],
+            "time": "2015-09-02 15:38:54"
+        },
+        {
+            "name": "codecollab/csrf-token",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CodeCollab/CsrfToken.git",
+                "reference": "85aff1d8e8f561c1a3e5f55df6db0733e4c35612"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CodeCollab/CsrfToken/zipball/85aff1d8e8f561c1a3e5f55df6db0733e4c35612",
+                "reference": "85aff1d8e8f561c1a3e5f55df6db0733e4c35612",
+                "shasum": ""
+            },
+            "require": {
+                "php": "7.0.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeCollab\\CsrfToken\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "See the LICENSE file"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "role": "Lead"
+                }
+            ],
+            "description": "CSRF token package of the CodeCollab project",
+            "homepage": "https://github.com/CodeCollab/CsrfToken",
+            "keywords": [
+                "codecollab",
+                "csrf",
+                "security",
+                "token"
+            ],
+            "time": "2015-12-12 13:09:08"
+        },
+        {
+            "name": "codecollab/encryption",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CodeCollab/Encryption.git",
+                "reference": "c7261b3c233ab317012acd98384552bc61fca864"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CodeCollab/Encryption/zipball/c7261b3c233ab317012acd98384552bc61fca864",
+                "reference": "c7261b3c233ab317012acd98384552bc61fca864",
+                "shasum": ""
+            },
+            "require": {
+                "defuse/php-encryption": "1.2.*",
+                "php": "7.0.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeCollab\\Encryption\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "See the LICENSE file"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Encryption package of the CodeCollab project",
+            "homepage": "https://github.com/CodeCollab/Encryption",
+            "keywords": [
+                "Rijndael",
+                "codecollab",
+                "encryption",
+                "security"
+            ],
+            "time": "2015-12-15 15:41:29"
+        },
+        {
+            "name": "codecollab/form",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CodeCollab/Form.git",
+                "reference": "26d770113a2acb5846e4ed3e0f342aa00ecbf244"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CodeCollab/Form/zipball/26d770113a2acb5846e4ed3e0f342aa00ecbf244",
+                "reference": "26d770113a2acb5846e4ed3e0f342aa00ecbf244",
+                "shasum": ""
+            },
+            "require": {
+                "codecollab/csrf-token": "dev-master",
+                "codecollab/http": "dev-master",
+                "php": ">=7.0-dev"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeCollab\\Form\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "See the LICENSE file"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Form package of the CodeCollab project",
+            "homepage": "https://github.com/CodeCollab/Form",
+            "keywords": [
+                "codecollab",
+                "form"
+            ],
+            "time": "2015-09-27 18:47:42"
+        },
+        {
+            "name": "codecollab/http",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CodeCollab/Http.git",
+                "reference": "e523979458bdd98582ad5cd09aac195e42c432db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CodeCollab/Http/zipball/e523979458bdd98582ad5cd09aac195e42c432db",
+                "reference": "e523979458bdd98582ad5cd09aac195e42c432db",
+                "shasum": ""
+            },
+            "require": {
+                "codecollab/encryption": "dev-master",
+                "php": ">=7.0-dev"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeCollab\\Http\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "See the LICENSE file"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Http package of the CodeCollab project",
+            "homepage": "https://github.com/CodeCollab/Http",
+            "keywords": [
+                "codecollab",
+                "cookie",
+                "http",
+                "network",
+                "request",
+                "response",
+                "session"
+            ],
+            "time": "2015-09-13 17:42:06"
+        },
+        {
+            "name": "codecollab/i18n",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CodeCollab/I18n.git",
+                "reference": "3e612a59ae68ccf0fdad64fb9fbcdd986ee6bb0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CodeCollab/I18n/zipball/3e612a59ae68ccf0fdad64fb9fbcdd986ee6bb0a",
+                "reference": "3e612a59ae68ccf0fdad64fb9fbcdd986ee6bb0a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "7.0.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeCollab\\I18n\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "See the LICENSE file"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Internationalization package of the CodeCollab project",
+            "homepage": "https://github.com/CodeCollab/I18n",
+            "keywords": [
+                "codecollab",
+                "i18n",
+                "internationalization"
+            ],
+            "time": "2015-12-09 19:34:13"
+        },
+        {
+            "name": "codecollab/router",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CodeCollab/Router.git",
+                "reference": "56953155e9437a1675df4906b99126033cb55907"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CodeCollab/Router/zipball/56953155e9437a1675df4906b99126033cb55907",
+                "reference": "56953155e9437a1675df4906b99126033cb55907",
+                "shasum": ""
+            },
+            "require": {
+                "codecollab/http": "dev-master",
+                "nikic/fast-route": "0.6.*",
+                "php": ">=7.0-dev",
+                "rdlowrey/auryn": "1.1.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeCollab\\Router\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "See the LICENSE file"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Router package of the CodeCollab project",
+            "homepage": "https://github.com/CodeCollab/Router",
+            "keywords": [
+                "codecollab",
+                "http",
+                "network",
+                "router"
+            ],
+            "time": "2015-10-03 13:55:30"
+        },
+        {
+            "name": "codecollab/template",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CodeCollab/Template.git",
+                "reference": "f137c557be01f0cbdd7fd98c2a58d22f444c68f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CodeCollab/Template/zipball/f137c557be01f0cbdd7fd98c2a58d22f444c68f3",
+                "reference": "f137c557be01f0cbdd7fd98c2a58d22f444c68f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0-dev"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeCollab\\Template\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "See the LICENSE file"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Template package of the CodeCollab project",
+            "homepage": "https://github.com/CodeCollab/Theme",
+            "keywords": [
+                "codecollab",
+                "template"
+            ],
+            "time": "2015-09-04 19:00:59"
+        },
+        {
+            "name": "codecollab/theme",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CodeCollab/Theme.git",
+                "reference": "2313a7a7115f1cac5f57169472ac1a4ac15185c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CodeCollab/Theme/zipball/2313a7a7115f1cac5f57169472ac1a4ac15185c7",
+                "reference": "2313a7a7115f1cac5f57169472ac1a4ac15185c7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0-dev"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeCollab\\Theme\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "See the LICENSE file"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Theme package of the CodeCollab project",
+            "homepage": "https://github.com/CodeCollab/Theme",
+            "keywords": [
+                "codecollab",
+                "theme"
+            ],
+            "time": "2015-08-31 14:45:28"
+        },
+        {
+            "name": "defuse/php-encryption",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/defuse/php-encryption.git",
+                "reference": "b87737b2eec06b13f025cabea847338fa203d1b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/defuse/php-encryption/zipball/b87737b2eec06b13f025cabea847338fa203d1b4",
+                "reference": "b87737b2eec06b13f025cabea847338fa203d1b4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mcrypt": "*",
+                "ext-openssl": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Crypto.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Hornby",
+                    "email": "havoc@defuse.ca"
+                }
+            ],
+            "description": "Secure PHP Encryption Library",
+            "keywords": [
+                "aes",
+                "cipher",
+                "encryption",
+                "mcrypt",
+                "security"
+            ],
+            "time": "2015-03-14 20:27:45"
+        },
+        {
+            "name": "lusitanian/oauth",
+            "version": "v0.8.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Lusitanian/PHPoAuthLib.git",
+                "reference": "798260e55ac994636a9fa8b61adfdb67aab389c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Lusitanian/PHPoAuthLib/zipball/798260e55ac994636a9fa8b61adfdb67aab389c9",
+                "reference": "798260e55ac994636a9fa8b61adfdb67aab389c9",
                 "shasum": ""
             },
             "require": {
@@ -26,6 +489,7 @@
             "require-dev": {
                 "phpunit/phpunit": "3.7.*",
                 "predis/predis": "0.8.*@dev",
+                "squizlabs/php_codesniffer": "2.*",
                 "symfony/http-foundation": "~2.1"
             },
             "suggest": {
@@ -45,7 +509,7 @@
                     "OAuth\\Unit": "tests"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -53,6 +517,10 @@
                 {
                     "name": "David Desberg",
                     "email": "david@daviddesberg.com"
+                },
+                {
+                    "name": "Elliot Chance",
+                    "email": "elliotchance@gmail.com"
                 },
                 {
                     "name": "Pieter Hordijk",
@@ -66,16 +534,287 @@
                 "oauth",
                 "security"
             ],
-            "time": "2014-09-05 15:19:58"
+            "time": "2015-12-10 05:40:17"
+        },
+        {
+            "name": "matthiasmullie/minify",
+            "version": "1.3.29",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matthiasmullie/minify.git",
+                "reference": "58fa692aeffa9cbafacdd1e7b3c5b0e65cd76108"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matthiasmullie/minify/zipball/58fa692aeffa9cbafacdd1e7b3c5b0e65cd76108",
+                "reference": "58fa692aeffa9cbafacdd1e7b3c5b0e65cd76108",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "matthiasmullie/path-converter": "~1.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "matthiasmullie/scrapbook": "~1.0",
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "bin": [
+                "bin/minifycss",
+                "bin/minifyjs"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MatthiasMullie\\Minify\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthias Mullie",
+                    "email": "minify@mullie.eu",
+                    "homepage": "http://www.mullie.eu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "CSS & JS minifier",
+            "homepage": "http://www.minifier.org",
+            "keywords": [
+                "JS",
+                "css",
+                "javascript",
+                "minifier",
+                "minify"
+            ],
+            "time": "2015-12-17 21:38:16"
+        },
+        {
+            "name": "matthiasmullie/path-converter",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matthiasmullie/path-converter.git",
+                "reference": "b1e31c51e8c207ad6114f5b4ac4e652bc936c380"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matthiasmullie/path-converter/zipball/b1e31c51e8c207ad6114f5b4ac4e652bc936c380",
+                "reference": "b1e31c51e8c207ad6114f5b4ac4e652bc936c380",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MatthiasMullie\\PathConverter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matthias Mullie",
+                    "email": "pathconverter@mullie.eu",
+                    "homepage": "http://www.mullie.eu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Relative path converter",
+            "homepage": "http://github.com/matthiasmullie/path-converter",
+            "keywords": [
+                "converter",
+                "path",
+                "paths",
+                "relative"
+            ],
+            "time": "2015-06-01 15:20:30"
+        },
+        {
+            "name": "nikic/fast-route",
+            "version": "v0.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/FastRoute.git",
+                "reference": "31fa86924556b80735f98b294a7ffdfb26789f22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/31fa86924556b80735f98b294a7ffdfb26789f22",
+                "reference": "31fa86924556b80735f98b294a7ffdfb26789f22",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FastRoute\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov",
+                    "email": "nikic@php.net"
+                }
+            ],
+            "description": "Fast request router for PHP",
+            "keywords": [
+                "router",
+                "routing"
+            ],
+            "time": "2015-06-18 19:15:47"
+        },
+        {
+            "name": "peehaa/minifine",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PeeHaa/Minifine.git",
+                "reference": "7ec791c3c039979642af74ee53ffc06468296516"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PeeHaa/Minifine/zipball/7ec791c3c039979642af74ee53ffc06468296516",
+                "reference": "7ec791c3c039979642af74ee53ffc06468296516",
+                "shasum": ""
+            },
+            "require": {
+                "matthiasmullie/minify": "1.3.*",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Minifine\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pieter Hordijk",
+                    "email": "info@pieterhordijk.com",
+                    "homepage": "https://pieterhordijk.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "Minifier for web resources",
+            "homepage": "https://github.com/PeeHaa/Minifine",
+            "keywords": [
+                "JS",
+                "css",
+                "html",
+                "minify",
+                "uglify"
+            ],
+            "time": "2015-11-23 21:41:00"
+        },
+        {
+            "name": "rdlowrey/auryn",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rdlowrey/auryn.git",
+                "reference": "f57eaf665a601dbe061c8b1426d84f58c003e6a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rdlowrey/auryn/zipball/f57eaf665a601dbe061c8b1426d84f58c003e6a8",
+                "reference": "f57eaf665a601dbe061c8b1426d84f58c003e6a8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1",
+                "fabpot/php-cs-fixer": "~1.9",
+                "phpunit/phpunit": "^4.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Auryn\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dan Ackroyd",
+                    "email": "Danack@basereality.com",
+                    "homepage": "http://www.basereality.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Levi Morrison",
+                    "email": "levim@php.net",
+                    "homepage": "http://morrisonlevi.github.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@gmail.com",
+                    "homepage": "https://github.com/rdlowrey",
+                    "role": "Creator / Main Developer"
+                }
+            ],
+            "description": "Auryn is a dependency injector for bootstrapping object-oriented PHP applications.",
+            "homepage": "https://github.com/rdlowrey/auryn",
+            "keywords": [
+                "dependency injection",
+                "dic",
+                "ioc"
+            ],
+            "time": "2015-08-26 16:31:48"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "peehaa/minifine": 20,
+        "codecollab/http": 20,
+        "codecollab/authentication": 20,
+        "codecollab/form": 20,
+        "codecollab/i18n": 20,
+        "codecollab/router": 20,
+        "codecollab/template": 20,
+        "codecollab/theme": 20
+    },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4"
+        "php": ">=7.0"
     },
     "platform-dev": []
 }

@@ -2,7 +2,7 @@
     "name": "room11/feedr",
     "description": "Provides a feed of the awesome",
     "keywords": ["feed", "xml", "github", "room11", "lusitanians mom"],
-    "homepage": "https://github.com/PeeHaa/OpCacheGUI",
+    "homepage": "https://feedr.pieterhordijk.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,8 +12,20 @@
             "role": "developer"
         }
     ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {"Feedr\\": "src/"}
+    },
     "require": {
-        "php": ">=5.4",
-        "lusitanian/oauth": "~0.3"
+        "php": ">=7.0",
+        "lusitanian/oauth": "~0.3",
+        "peehaa/minifine": "dev-master",
+        "codecollab/http": "dev-master",
+        "codecollab/authentication": "dev-master",
+        "codecollab/form": "dev-master",
+        "codecollab/i18n": "dev-master",
+        "codecollab/router": "dev-master",
+        "codecollab/template": "dev-master",
+        "codecollab/theme": "dev-master"
     }
 }

@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeCollab/Authentication.git",
-                "reference": "51f38210ce858c3049bfa58351e372e918cacf1e"
+                "reference": "2b78a836d8aa957104db23f1f1e625feca3ca2dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodeCollab/Authentication/zipball/51f38210ce858c3049bfa58351e372e918cacf1e",
-                "reference": "51f38210ce858c3049bfa58351e372e918cacf1e",
+                "url": "https://api.github.com/repos/CodeCollab/Authentication/zipball/2b78a836d8aa957104db23f1f1e625feca3ca2dc",
+                "reference": "2b78a836d8aa957104db23f1f1e625feca3ca2dc",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "codecollab",
                 "security"
             ],
-            "time": "2015-09-02 15:38:54"
+            "time": "2015-12-20 16:51:56"
         },
         {
             "name": "codecollab/csrf-token",

@@ -20,6 +20,7 @@ use Minifine\Minifine;
 use CodeCollab\I18n\Translator;
 use CodeCollab\Authentication\Authentication;
 use CodeCollab\CsrfToken\Token;
+use CodeCollab\Http\Request\Request;
 
 /**
  * HTML page template renderer
@@ -57,14 +58,20 @@ class Html extends BaseTemplate
     protected $csrfToken;
 
     /**
+     * @var \CodeCollab\Http\Request\Request The request object
+     */
+    protected $request;
+
+    /**
      * Creates instance
      *
      * @param string                                    $basePage   The base (skeleton) page template
      * @param \CodeCollab\Theme\Loader                  $theme      Instance of a theme loader
      * @param \Minifine\Minifine                        $minifier   Instance of a resource minifier
      * @param \CodeCollab\I18n\Translator               $translator Instance of a translator
-     * @param \CodeCollab\Authentication\Authentication $translator Instance of a translator
+     * @param \CodeCollab\Authentication\Authentication $user       Instance of an authenticator
      * @param \CodeCollab\CsrfToken\Token               $csrfToken  The CSRF token
+     * @param \CodeCollab\Http\Request\Request          $request    The request object
      */
     public function __construct(
         string $basePage,
@@ -72,7 +79,8 @@ class Html extends BaseTemplate
         Minifine $minifier,
         Translator $translator,
         Authentication $user,
-        Token $csrfToken
+        Token $csrfToken,
+        Request $request
     )
     {
         parent::__construct($basePage);
@@ -82,6 +90,7 @@ class Html extends BaseTemplate
         $this->translator = $translator;
         $this->user       = $user;
         $this->csrfToken  = $csrfToken;
+        $this->request    = $request;
     }
 
     /**

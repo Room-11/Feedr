@@ -1,0 +1,206 @@
+<?php declare(strict_types=1); ?>
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            <?= $this->translate('page.feeds.create.title'); ?>
+            <small><?= $this->translate('page.feeds.create.subtitle'); ?></small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i> <?= $this->translate('breadcrumbs.home'); ?></a></li>
+            <li><a href="/feeds"><?= $this->translate('page.feeds.create.title'); ?></a></li>
+            <li class="active"><?= $this->translate('page.feeds.create.subtitle'); ?></li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-md-8">
+                <form action="/feeds/create" method="post" class="feed-form">
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">New feed information</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Feed name:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa">&#xf09e;</i>
+                                            </div>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Visibility:</label>
+                                        <div class="form-group vertical-align-radios">
+                                            <label class="horizontal-radio">
+                                                <input type="radio" name="visibility" class="flat-blue" value="public" checked>
+                                                Public
+                                            </label>
+                                            <label class="horizontal-radio">
+                                                <input type="radio" name="visibility" class="flat-blue" value="private">
+                                                Private
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row collapse">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-lock"></i>
+                                            </div>
+                                            <input type="password" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Repeat password:</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-lock"></i>
+                                            </div>
+                                            <input type="password" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-danger">
+                        <div class="box-header">
+                            <h3 class="box-title">Repositories</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Repository</th>
+                                            <th>URL</th>
+                                            <th class="text-right">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Room-11</td>
+                                            <td>Feedr</td>
+                                            <td><a href="https://github.com/Room-11-Feedr" target="_blank">https://github.com/Room-11-Feedr</a></td>
+                                            <td class="text-right"><button class="btn btn-danger btn-flat confirm"><i class="fa fa-trash-o"></i></button></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-success">
+                        <div class="box-header">
+                            <h3 class="box-title">Administrators</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover data-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Avatar</th>
+                                        <th>Username</th>
+                                        <th>URL</th>
+                                        <th class="text-right">Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><img src="https://avatars.githubusercontent.com/u/1330296?v=3" class="user-image" alt="PeeHaa"></td>
+                                        <td>PeeHaa</td>
+                                        <td><a href="https://github.com/PeeHaa" target="_blank">https://github.com/PeeHaa</a></td>
+                                        <td class="text-right"><button class="btn btn-danger btn-flat confirm"><i class="fa fa-trash-o"></i></button></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <div class="box box-warning direct-chat">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><i class="fa fa-comments"></i> Feed preview</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="direct-chat-messages">
+                            <div class="direct-chat-msg">
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name pull-left">kelunik/acme v0.2.1</span>
+                                    <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                                </div>
+                                <img class="direct-chat-img" src="https://avatars.githubusercontent.com/u/2743004?v=3" alt="message user image">
+                                <div class="direct-chat-text">
+                                    <ul>
+                                        <li>PHP 5.5 compatibility</li>
+                                        <li>SAN certificates work now</li>
+                                        <li>Improved error messages</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="direct-chat-msg right">
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name pull-right">nikic/FastRoute v0.7.0</span>
+                                    <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                                </div>
+                                <img class="direct-chat-img" src="https://avatars.githubusercontent.com/u/216080?v=3" alt="message user image">
+                                <div class="direct-chat-text">
+                                    <ul>
+                                        <li>Add HHI file for Hack typechecking support. The HHI file requires HHVM 3.9 or newer.</li>
+                                        <li>Fix support for empty routes.</li>
+                                        <li>Improve error message if optional part is not at the end of a rout</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="direct-chat-contacts">
+                            <ul class="contacts-list">
+                                <li>
+                                    <a href="#">
+                                        <div class="contacts-list-info">
+                                            <span class="contacts-list-name">
+                                              Room 11 Regulars
+                                              <small class="contacts-list-date pull-right"><span class="label label-info pull-right">10</span></small>
+                                            </span>
+                                            <span class="contacts-list-msg">PHP 5.5 compatibility. SAN certificates work now. Improved error...</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="contacts-list-info">
+                                            <span class="contacts-list-name">
+                                              Other feed
+                                              <small class="contacts-list-date pull-right"><span class="label label-info pull-right">10</span></small>
+                                            </span>
+                                            <span class="contacts-list-msg">Lorem ipsum dolar sed amit...</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -22,6 +22,7 @@ $texts = [
     'nav.sidebar.admin.items.errors'                                => 'Errors',
 
     'breadcrumbs.home'                                              => 'Home',
+    'breadcrumbs.feeds'                                             => 'Feeds',
 
     'footer.version.title'                                          => 'Version',
     'footer.theme.author'                                           => 'Theme by <a href="http://almsaeedstudio.com/" target="_blank">Almsaeed Studio</a>.',
@@ -59,4 +60,7 @@ $texts = [
     'page.dashboard.notifications.title'                            => 'Notifications',
     'page.dashboard.notifications.requested'                        => 'Feed requested',
     'page.dashboard.notifications.view-more'                        => 'View more notifications',
+
+    'page.feeds.create.title'                                       => 'Feeds',
+    'page.feeds.create.subtitle'                                    => 'Create new feed',
 ];

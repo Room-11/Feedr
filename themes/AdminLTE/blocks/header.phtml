@@ -22,7 +22,8 @@
                         <li class="user-header">
                             <img src="<?= $this->escape($this->user->avatar_url); ?>" class="img-circle" alt="<?= $this->escape($this->user->login); ?>">
                             <p>
-                                <?= $this->escape($this->user->login); ?> - <?= $this->escape($this->user->name); ?>
+                                <?= $this->escape($this->user->login); ?>
+                                <?php if ($this->user->name) echo ' - ' . $this->escape($this->user->name); ?>
                                 <small><?= $this->translate('nav.user.member-since.%', [(new \DateTime($this->user->created_at))->format('d-m-Y')]); ?></small>
                             </p>
                         </li>

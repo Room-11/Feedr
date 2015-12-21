@@ -21,6 +21,8 @@ $texts = [
     'nav.sidebar.admin.items.users'                                 => 'Users',
     'nav.sidebar.admin.items.errors'                                => 'Errors',
 
+    'breadcrumbs.home'                                              => 'Home',
+
     'footer.version.title'                                          => 'Version',
     'footer.theme.author'                                           => 'Theme by <a href="http://almsaeedstudio.com/" target="_blank">Almsaeed Studio</a>.',
     'footer.theme.license'                                          => 'MIT licensed.',

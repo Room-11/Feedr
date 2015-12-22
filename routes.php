@@ -28,6 +28,6 @@ if (!$user->isLoggedIn()) {
     $router
         ->get('/', ['Feedr\Presentation\Controller\Index', 'index'])
         ->post('/logout', ['Feedr\Presentation\Controller\Authentication', 'doLogout'])
-        ->get('/create', ['Feedr\Presentation\Controller\Feed', 'create'])
+        ->get('/feeds/create', ['Feedr\Presentation\Controller\Feed', 'create'])
     ;
 }

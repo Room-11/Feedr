@@ -18,7 +18,7 @@
         0 => 'Feedr\\Presentation\\Controller\\Index',
         1 => 'index',
       ),
-      '/create' => 
+      '/feeds/create' => 
       array (
         0 => 'Feedr\\Presentation\\Controller\\Feed',
         1 => 'create',

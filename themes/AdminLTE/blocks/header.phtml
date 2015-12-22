@@ -31,7 +31,7 @@
                             <div class="pull-right">
                                 <form action="/logout" method="post">
                                     <input type="hidden" name="csrfToken" value="<?= base64_encode($this->csrfToken->get()); ?>">
-                                    <button type="submit" class="btn btn-default btn-flat"><?= $this->translate('nav.logout.submit'); ?></button>
+                                    <input value="<?= $this->translate('nav.logout.submit'); ?>" type="submit" class="btn btn-default btn-flat">
                                 </form>
                             </div>
                         </li>

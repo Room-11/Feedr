@@ -17,18 +17,18 @@
                 <form action="/feeds/create" method="post" class="feed-form">
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">New feed information</h3>
+                            <h3 class="box-title"><?= $this->translate('page.feeds.create.form.basic.title'); ?></h3>
                         </div>
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Feed name:</label>
+                                        <label><?= $this->translate('page.feeds.create.form.basic.name.label'); ?></label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa">&#xf09e;</i>
                                             </div>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" name="name">
                                         </div>
                                     </div>
                                 </div>
@@ -38,11 +38,11 @@
                                         <div class="form-group vertical-align-radios">
                                             <label class="horizontal-radio">
                                                 <input type="radio" name="visibility" class="flat-blue" value="public" checked>
-                                                Public
+                                                <?= $this->translate('page.feeds.create.form.basic.visibility.options.public'); ?>
                                             </label>
                                             <label class="horizontal-radio">
                                                 <input type="radio" name="visibility" class="flat-blue" value="private">
-                                                Private
+                                                <?= $this->translate('page.feeds.create.form.basic.visibility.options.private'); ?>
                                             </label>
                                         </div>
                                     </div>
@@ -51,23 +51,23 @@
                             <div class="row collapse">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Password:</label>
+                                        <label><?= $this->translate('page.feeds.create.form.basic.password.label'); ?></label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-lock"></i>
                                             </div>
-                                            <input type="password" class="form-control">
+                                            <input type="password" class="form-control" name="password">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Repeat password:</label>
+                                        <label><?= $this->translate('page.feeds.create.form.basic.password2.label'); ?></label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-lock"></i>
                                             </div>
-                                            <input type="password" class="form-control">
+                                            <input type="password" class="form-control" name="password2">
                                         </div>
                                     </div>
                                 </div>
@@ -76,20 +76,26 @@
                     </div>
                     <div class="box box-danger">
                         <div class="box-header">
-                            <h3 class="box-title">Repositories</h3>
+                            <h3 class="box-title"><?= $this->translate('page.feeds.create.form.repos.title'); ?></h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="<?= $this->translate('page.feeds.create.form.repos.add.placeholder'); ?>">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-hover data-table">
                                     <thead>
                                         <tr>
-                                            <th>Username</th>
-                                            <th>Repository</th>
-                                            <th>URL</th>
-                                            <th class="text-right">Delete</th>
+                                            <th><?= $this->translate('page.feeds.create.form.repos.table.username.heading'); ?></th>
+                                            <th><?= $this->translate('page.feeds.create.form.repos.table.repository.heading'); ?></th>
+                                            <th><?= $this->translate('page.feeds.create.form.repos.table.url.heading'); ?></th>
+                                            <th class="text-right"><?= $this->translate('page.feeds.create.form.repos.table.delete.heading'); ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -106,20 +112,27 @@
                     </div>
                     <div class="box box-success">
                         <div class="box-header">
-                            <h3 class="box-title">Administrators</h3>
+                            <h3 class="box-title"><?= $this->translate('page.feeds.create.form.admins.title'); ?></h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="<?= $this->translate('page.feeds.create.form.admins.add.placeholder'); ?>">
+
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-hover data-table">
                                     <thead>
                                     <tr>
-                                        <th>Avatar</th>
-                                        <th>Username</th>
-                                        <th>URL</th>
-                                        <th class="text-right">Delete</th>
+                                        <th><?= $this->translate('page.feeds.create.form.admins.table.avatar.heading'); ?></th>
+                                        <th><?= $this->translate('page.feeds.create.form.admins.table.username.heading'); ?></th>
+                                        <th><?= $this->translate('page.feeds.create.form.admins.table.url.heading'); ?></th>
+                                        <th class="text-right"><?= $this->translate('page.feeds.create.form.admins.table.delete.heading'); ?></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -139,7 +152,7 @@
             <div class="col-md-4">
                 <div class="box box-warning direct-chat">
                     <div class="box-header with-border">
-                        <h3 class="box-title"><i class="fa fa-comments"></i> Feed preview</h3>
+                        <h3 class="box-title"><i class="fa fa-comments"></i> <?= $this->translate('page.feeds.create.preview.title'); ?></h3>
                     </div>
                     <div class="box-body">
                         <div class="direct-chat-messages">

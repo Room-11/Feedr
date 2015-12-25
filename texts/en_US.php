@@ -82,4 +82,5 @@ $texts = [
     'page.feeds.create.form.admins.table.url.heading'               => 'URL',
     'page.feeds.create.form.admins.table.delete.heading'            => 'Delete',
     'page.feeds.create.preview.title'                               => 'Feed preview',
+    'page.feeds.create.form.basic.visibility.label'                 => 'Visibility:',
 ];

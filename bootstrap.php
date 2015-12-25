@@ -136,5 +136,5 @@ $frontController = new FrontController(
 try {
     $frontController->run($request);
 } catch (\Throwable $e) {
-    $auryn->execute('Feedr\Controller\Error::generic');
+    $auryn->execute('Feedr\Presentation\Controller\Error::generic');
 }

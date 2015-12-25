@@ -68,6 +68,18 @@ class Error
      */
     public function methodNotAllowed(Html $template): Response
     {
+        return $this->generic($template);
+    }
+
+    /**
+     * Render the generic error page
+     *
+     * @param \CodeCollab\Template\Html $template A HTML template renderer
+     *
+     * @return \CodeCollab\Http\Response\Response The HTTP response
+     */
+    public function generic(Html $template): Response
+    {
         $this->response->setContent($template->renderPage('/error/generic.phtml'));
 
         $this->response->setStatusCode(StatusCode::METHOD_NOT_ALLOWED);

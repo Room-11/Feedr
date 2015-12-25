@@ -133,4 +133,8 @@ $frontController = new FrontController(
 /**
  * Run the application
  */
-$frontController->run($request);
+try {
+    $frontController->run($request);
+} catch (\Throwable $e) {
+    $auryn->execute('Feedr\Controller\Error::generic');
+}

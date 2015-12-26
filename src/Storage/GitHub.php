@@ -64,9 +64,40 @@ class GitHub
      */
     public function request(string $path): array
     {
-        $service = $this->getService();
+        return json_decode($this->getService()->request($path), true);
+    }
 
-        return json_decode($service->request($path), true);
+    /**
+     * Searches for repositories
+     *
+     * @param string $q The search word(s)
+     *
+     * @return array List of repositories found
+     */
+    public function searchRepository(string $q): array
+    {
+        if (filter_var($q, FILTER_VALIDATE_URL) !== false || substr_count($q, '/') === 1) {
+            $parts = explode('/', $q);
+
+            $repo  = array_pop($parts);
+            $owner = array_pop($parts);
+
+            return $this->request('/repos/' . $owner . '/' . $repo);
+        }
+
+        return $this->request('/search/repositories?q=' . urlencode($q))['items'];
+    }
+
+    /**
+     * Searches for users
+     *
+     * @param string $q The search word(s)
+     *
+     * @return array List of users found
+     */
+    public function searchUser(string $q): array
+    {
+        return $this->request('/search/users?q=' . urlencode($q))['items'];
     }
 
     /**

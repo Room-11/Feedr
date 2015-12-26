@@ -1,0 +1,6 @@
+<tr class="repository" data-id="<?= $this->escape($this->id); ?>">
+    <td><?= $this->escape($this->owner); ?></td>
+    <td><?= $this->escape($this->repo); ?></td>
+    <td><a href="https://github.com/<?= $this->escape($this->owner); ?>/<?= $this->escape($this->repo); ?>" target="_blank">https://github.com/<?= $this->escape($this->owner); ?>/<?= $this->escape($this->repo); ?></a></td>
+    <td class="text-right"><button class="btn btn-danger btn-flat confirm"><i class="fa fa-trash-o"></i></button></td>
+</tr>

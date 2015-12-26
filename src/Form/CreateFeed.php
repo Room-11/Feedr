@@ -18,9 +18,11 @@ use CodeCollab\Form\Field\Csrf as CsrfField;
 use CodeCollab\Form\Field\Text as TextField;
 use CodeCollab\Form\Field\Radio as RadioField;
 use CodeCollab\Form\Field\Password as PasswordField;
+use Feedr\Form\Field\Json as JsonField;
 use CodeCollab\Form\Validation\Required as RequiredValidator;
 use CodeCollab\Form\Validation\Match as MatchValidator;
 use CodeCollab\Form\Validation\Options as OptionsValidator;
+use Feedr\Form\validation\Json as JsonValidator;
 
 /**
  * Create feed form
@@ -48,8 +50,18 @@ class CreateFeed extends BaseForm
         $this->addField(new RadioField('visibility', [
             new RequiredValidator(),
             new OptionsValidator(['public', 'private']),
-        ]));
+        ], 'public'));
 
         $this->addField(new PasswordField('password'));
+
+        $this->addField(new PasswordField('password2'));
+
+        $this->addField(new JsonField('repositories', [
+            new JsonValidator(),
+        ]));
+
+        $this->addField(new JsonField('administrators', [
+            new JsonValidator(),
+        ]));
     }
 }

@@ -1,0 +1,6 @@
+<tr class="administrator" data-id="<?= $this->escape($this->id); ?>">
+    <td><img src="<?= $this->escape($this->avatar); ?>" class="user-image" alt="<?= $this->escape($this->username); ?>"></td>
+    <td><?= $this->escape($this->username); ?></td>
+    <td><a href="https://github.com/<?= $this->escape($this->username); ?>" target="_blank">https://github.com/<?= $this->escape($this->username); ?></a></td>
+    <td class="text-right"><button class="btn btn-danger btn-flat confirm"><i class="fa fa-trash-o"></i></button></td>
+</tr>

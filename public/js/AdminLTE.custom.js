@@ -65,3 +65,204 @@
         $this.removeClass('confirm-cancel').addClass('confirm');
     });
 }(jQuery));
+
+/**
+ * Setup repo search
+ */
+(function($) {
+    'use strict';
+
+    var repositories = [];
+    var $repositoriesField = $('[name="repositories"]');
+
+    if ($repositoriesField.length && $repositoriesField.val().length) {
+        repositories = JSON.parse($repositoriesField.val());
+    }
+
+    var addRepository = function(id, name) {
+        for (var i = 0; i < repositories.length; i++) {
+            if (repositories[i].id === id) return;
+        }
+
+        repositories.push({
+            id: id,
+            name: name
+        });
+
+        updateField();
+    };
+
+    var deleteRepository = function(id) {
+        for (var i = 0; i < repositories.length; i++) {
+            if (repositories[i].id === id) {
+                repositories.splice(i, 1);
+
+                break;
+            }
+        }
+
+        updateField();
+    };
+
+    var updateField = function() {
+        $('[name="repositories"]').val(JSON.stringify(repositories));
+    };
+
+    $(document).on('keypress', '[name="repo-search"]', function(e) {
+        if (e.which !== 13) {
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        $('[data-action="repo-search"]').click();
+    });
+
+    $(document).on('click', '[data-action="repo-search"]', function() {
+        var $this = $(this);
+        var $icon = $this.find('i');
+
+        $icon.addClass('fa-circle-o-notch fa-spin').removeClass('fa-plus');
+
+        $.get('/repositories/search', {
+            repo: $('[name="repo-search"]').val()
+        }, function(modal) {
+            $icon.removeClass('fa-circle-o-notch fa-spin').addClass('fa-plus');
+
+            $('body').append(modal);
+
+            $('#search-results').modal('show');
+        });
+    });
+
+    $(document).on('hidden.bs.modal', '#search-results', function () {
+        $('#search-results').remove();
+    });
+
+    $(document).on('click', '.add-repo', function() {
+        var $this = $(this);
+        var $icon = $this.find('i');
+
+        $.get('/repositories/add', {
+            id: $this.data('id'),
+            repo: $this.data('repo')
+        }, function(row) {
+            $icon.addClass('fa-check').removeClass('fa-plus');
+
+            $('.repo-table tbody').append(row);
+
+            addRepository($this.data('id'), $this.data('repo'));
+        });
+    });
+
+    $(document).on('click', 'tr.repository .confirm-ok', function() {
+        var $this = $(this);
+        var $row  = $this.closest('tr');
+
+        deleteRepository($row.data('id'));
+
+        $row.remove();
+    });
+}(jQuery));
+
+/**
+ * Setup admin search
+ */
+(function($) {
+    'use strict';
+
+    var administrators       = [];
+    var $administratorsField = $('[name="administrators"]');
+
+    if ($administratorsField.length && $administratorsField.val().length) {
+        administrators = JSON.parse($administratorsField.val());
+    }
+
+    var addAdministrator = function(id, name) {
+        for (var i = 0; i < administrators.length; i++) {
+            if (administrators[i].id === id) return;
+        }
+
+        administrators.push({
+            id: id,
+            name: name
+        });
+
+        updateField();
+    };
+
+    var deleteAdministrator = function(id) {
+        for (var i = 0; i < administrators.length; i++) {
+            if (administrators[i].id === id) {
+                administrators.splice(i, 1);
+
+                break;
+            }
+        }
+
+        updateField();
+    };
+
+    var updateField = function() {
+        $('[name="administrators"]').val(JSON.stringify(administrators));
+    };
+
+    $(document).on('keypress', '[name="admin-search"]', function(e) {
+        if (e.which !== 13) {
+            return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        $('[data-action="admin-search"]').click();
+    });
+
+    $(document).on('click', '[data-action="admin-search"]', function() {
+        var $this = $(this);
+        var $icon = $this.find('i');
+
+        $icon.addClass('fa-circle-o-notch fa-spin').removeClass('fa-plus');
+
+        $.get('/administrators/search', {
+            user: $('[name="admin-search"]').val()
+        }, function(modal) {
+            $icon.removeClass('fa-circle-o-notch fa-spin').addClass('fa-plus');
+
+            $('body').append(modal);
+
+            $('#search-results').modal('show');
+        });
+    });
+
+    $(document).on('hidden.bs.modal', '#search-results', function () {
+        $('#search-results').remove();
+    });
+
+    $(document).on('click', '.add-admin', function() {
+        var $this = $(this);
+        var $icon = $this.find('i');
+
+        $.get('/administrators/add', {
+            id: $this.data('id'),
+            avatar: $this.data('avatar'),
+            username: $this.data('username')
+        }, function(row) {
+            $icon.addClass('fa-check').removeClass('fa-plus');
+
+            $('.admin-table tbody').append(row);
+
+            addAdministrator($this.data('id'), $this.data('name'));
+        });
+    });
+
+    $(document).on('click', 'tr.administrator .confirm-ok', function() {
+        var $this = $(this);
+        var $row  = $this.closest('tr');
+
+        deleteAdministrator($row.data('id'));
+
+        $row.remove();
+    });
+}(jQuery));

@@ -15,6 +15,7 @@
         <div class="row">
             <div class="col-md-8">
                 <form action="/feeds/create" method="post" class="feed-form">
+                    <input type="hidden" name="csrfToken" value="<?= base64_encode($this->csrfToken->get()); ?>">
                     <div class="box box-default">
                         <div class="box-header with-border">
                             <h3 class="box-title"><?= $this->translate('page.feeds.create.form.basic.title'); ?></h3>
@@ -25,49 +26,49 @@
                                     <div class="form-group">
                                         <label><?= $this->translate('page.feeds.create.form.basic.name.label'); ?></label>
                                         <div class="input-group">
-                                            <div class="input-group-addon">
+                                            <div class="input-group-addon <?php if (!$this->form['name']->isValid()) echo 'has-error'; ?>">
                                                 <i class="fa">&#xf09e;</i>
                                             </div>
-                                            <input type="text" class="form-control" name="name">
+                                            <input type="text" class="form-control" name="name" value="<?= $this->escape($this->form['name']->getValue()); ?>">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Visibility:</label>
+                                    <div class="form-group <?php if (!$this->form['visibility']->isValid()) echo 'has-error'; ?>">
+                                        <label><?= $this->translate('page.feeds.create.form.basic.visibility.label'); ?></label>
                                         <div class="form-group vertical-align-radios">
                                             <label class="horizontal-radio">
-                                                <input type="radio" name="visibility" class="flat-blue" value="public" checked>
+                                                <input type="radio" name="visibility" class="flat-blue" value="public" <?php if (!$this->form['visibility']->getValue() || $this->form['visibility']->getValue() === 'public') echo 'checked'; ?>>
                                                 <?= $this->translate('page.feeds.create.form.basic.visibility.options.public'); ?>
                                             </label>
                                             <label class="horizontal-radio">
-                                                <input type="radio" name="visibility" class="flat-blue" value="private">
+                                                <input type="radio" name="visibility" class="flat-blue" value="private" <?php if ($this->form['visibility']->getValue() === 'private') echo 'checked'; ?>>
                                                 <?= $this->translate('page.feeds.create.form.basic.visibility.options.private'); ?>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row collapse">
+                            <div class="row <?php if ($this->form['visibility']->getValue() !== 'private') echo 'collapse'; ?>">
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group <?php if (!$this->form['password']->isValid()) echo 'has-error'; ?>">
                                         <label><?= $this->translate('page.feeds.create.form.basic.password.label'); ?></label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-lock"></i>
                                             </div>
-                                            <input type="password" class="form-control" name="password">
+                                            <input type="password" class="form-control" name="password" value="<?= $this->escape($this->form['password']->getValue()); ?>">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group <?php if (!$this->form['password2']->isValid()) echo 'has-error'; ?>">
                                         <label><?= $this->translate('page.feeds.create.form.basic.password2.label'); ?></label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
                                                 <i class="fa fa-lock"></i>
                                             </div>
-                                            <input type="password" class="form-control" name="password2">
+                                            <input type="password" class="form-control" name="password2" value="<?= $this->escape($this->form['password2']->getValue()); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -82,14 +83,15 @@
                             </div>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" class="form-control" name="repositories" value="<?= $this->escape($this->form['repositories']->getValue()); ?>">
                             <div class="input-group">
-                                <input class="form-control" placeholder="<?= $this->translate('page.feeds.create.form.repos.add.placeholder'); ?>">
+                                <input class="form-control" name="repo-search" placeholder="<?= $this->translate('page.feeds.create.form.repos.add.placeholder'); ?>">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                    <button type="button" class="btn btn-success" data-action="repo-search"><i class="fa fa-fw fa-plus"></i></button>
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-hover data-table">
+                                <table class="table table-hover data-table repo-table">
                                     <thead>
                                         <tr>
                                             <th><?= $this->translate('page.feeds.create.form.repos.table.username.heading'); ?></th>
@@ -118,30 +120,31 @@
                             </div>
                         </div>
                         <div class="box-body">
+                            <input type="hidden" class="form-control" name="administrators" value="<?= $this->escape($this->form['administrators']->getValue()); ?>">
                             <div class="input-group">
-                                <input class="form-control" placeholder="<?= $this->translate('page.feeds.create.form.admins.add.placeholder'); ?>">
+                                <input class="form-control" name="admin-search" placeholder="<?= $this->translate('page.feeds.create.form.admins.add.placeholder'); ?>">
 
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
+                                    <button type="button" class="btn btn-success" data-action="admin-search"><i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-hover data-table">
+                                <table class="table table-hover data-table admin-table">
                                     <thead>
-                                    <tr>
-                                        <th><?= $this->translate('page.feeds.create.form.admins.table.avatar.heading'); ?></th>
-                                        <th><?= $this->translate('page.feeds.create.form.admins.table.username.heading'); ?></th>
-                                        <th><?= $this->translate('page.feeds.create.form.admins.table.url.heading'); ?></th>
-                                        <th class="text-right"><?= $this->translate('page.feeds.create.form.admins.table.delete.heading'); ?></th>
-                                    </tr>
+                                        <tr>
+                                            <th><?= $this->translate('page.feeds.create.form.admins.table.avatar.heading'); ?></th>
+                                            <th><?= $this->translate('page.feeds.create.form.admins.table.username.heading'); ?></th>
+                                            <th><?= $this->translate('page.feeds.create.form.admins.table.url.heading'); ?></th>
+                                            <th class="text-right"><?= $this->translate('page.feeds.create.form.admins.table.delete.heading'); ?></th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td><img src="https://avatars.githubusercontent.com/u/1330296?v=3" class="user-image" alt="PeeHaa"></td>
-                                        <td>PeeHaa</td>
-                                        <td><a href="https://github.com/PeeHaa" target="_blank">https://github.com/PeeHaa</a></td>
-                                        <td class="text-right"><button class="btn btn-danger btn-flat confirm"><i class="fa fa-trash-o"></i></button></td>
-                                    </tr>
+                                        <tr>
+                                            <td><img src="https://avatars.githubusercontent.com/u/1330296?v=3" class="user-image" alt="PeeHaa"></td>
+                                            <td>PeeHaa</td>
+                                            <td><a href="https://github.com/PeeHaa" target="_blank">https://github.com/PeeHaa</a></td>
+                                            <td class="text-right"><button class="btn btn-danger btn-flat confirm"><i class="fa fa-trash-o"></i></button></td>
+                                        </tr>
                                     </tfoot>
                                 </table>
                             </div>

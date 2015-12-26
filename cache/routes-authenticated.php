@@ -23,6 +23,26 @@
         0 => 'Feedr\\Presentation\\Controller\\Feed',
         1 => 'create',
       ),
+      '/repositories/search' => 
+      array (
+        0 => 'Feedr\\Presentation\\Controller\\Repository',
+        1 => 'search',
+      ),
+      '/repositories/add' => 
+      array (
+        0 => 'Feedr\\Presentation\\Controller\\Repository',
+        1 => 'addRow',
+      ),
+      '/administrators/search' => 
+      array (
+        0 => 'Feedr\\Presentation\\Controller\\Administrator',
+        1 => 'search',
+      ),
+      '/administrators/add' => 
+      array (
+        0 => 'Feedr\\Presentation\\Controller\\Administrator',
+        1 => 'addRow',
+      ),
     ),
     'POST' => 
     array (

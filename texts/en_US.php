@@ -83,4 +83,10 @@ $texts = [
     'page.feeds.create.form.admins.table.delete.heading'            => 'Delete',
     'page.feeds.create.preview.title'                               => 'Feed preview',
     'page.feeds.create.form.basic.visibility.label'                 => 'Visibility:',
+
+    'modal.repositories.search.result.title'                        => 'Found repositories',
+    'modal.repositories.search.result.close'                        => 'Close',
+
+    'modal.administrators.search.result.title'                      => 'Found administrators',
+    'modal.administrators.search.result.close'                      => 'Close',
 ];

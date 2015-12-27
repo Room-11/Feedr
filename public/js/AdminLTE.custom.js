@@ -72,8 +72,9 @@
 (function($) {
     'use strict';
 
-    var repositories = [];
+    var repositories       = [];
     var $repositoriesField = $('[name="repositories"]');
+    var $counter           = $('.repo-amount');
 
     if ($repositoriesField.length && $repositoriesField.val().length) {
         repositories = JSON.parse($repositoriesField.val());
@@ -106,6 +107,9 @@
 
     var updateField = function() {
         $('[name="repositories"]').val(JSON.stringify(repositories));
+
+        $counter.text(repositories.length);
+        $counter[0].setAttribute('data-original-title', $counter.data('translation').replace('%d', repositories.length));
     };
 
     $(document).on('keypress', '[name="repo-search"]', function(e) {
@@ -174,6 +178,7 @@
 
     var administrators       = [];
     var $administratorsField = $('[name="administrators"]');
+    var $counter             = $('.admin-amount');
 
     if ($administratorsField.length && $administratorsField.val().length) {
         administrators = JSON.parse($administratorsField.val());
@@ -206,6 +211,9 @@
 
     var updateField = function() {
         $('[name="administrators"]').val(JSON.stringify(administrators));
+
+        $counter.text(administrators.length);
+        $counter[0].setAttribute('data-original-title', $counter.data('translation').replace('%d', administrators.length));
     };
 
     $(document).on('keypress', '[name="admin-search"]', function(e) {

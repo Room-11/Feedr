@@ -6,27 +6,30 @@
  *
  * @category   Feedr
  * @package    Storage
+ * @subpackage GitHub
  * @author     Pieter Hordijk <info@pieterhordijk.com>
  * @copyright  Copyright (c) 2015 Pieter Hordijk <https://github.com/PeeHaa>
  * @license    See the LICENSE file
  * @version    1.0.0
  */
-namespace Feedr\Storage;
+namespace Feedr\Storage\Github;
 
 use OAuth\ServiceFactory;
 use OAuth\Common\Http\Uri\UriFactory;
 use OAuth\Common\Storage\Session as OauthSession;
 use OAuth\Common\Consumer\Credentials;
 use OAuth\OAuth2\Service\GitHub as GitHubService;
+use OAuth\Common\Exception\Exception;
 
 /**
  * GitHub API storage
  *
  * @category   Feedr
  * @package    Storage
+ * @subpackage GitHub
  * @author     Pieter Hordijk <info@pieterhordijk.com>
  */
-class GitHub
+class Service
 {
     /**
      * @var string The GitHub API key
@@ -39,6 +42,11 @@ class GitHub
     private $secret;
 
     /**
+     * @var \Feedr\Storage\Github\ErrorHandler The custom error handler
+     */
+    private $errorHandler;
+
+    /**
      * @var null|\OAuth\OAuth2\Service\GitHub The GitHub service
      */
     private $service;
@@ -46,13 +54,15 @@ class GitHub
     /**
      * Creates instance
      *
-     * @param string $key    The GitHub API key
-     * @param string $secret The GitHub API secret
+     * @param string                             $key          The GitHub API key
+     * @param string                             $secret       The GitHub API secret
+     * @param \Feedr\Storage\Github\ErrorHandler $errorHandler The error handler
      */
-    public function __construct(string $key, string $secret)
+    public function __construct(string $key, string $secret, ErrorHandler $errorHandler)
     {
-        $this->key    = $key;
-        $this->secret = $secret;
+        $this->key          = $key;
+        $this->secret       = $secret;
+        $this->errorHandler = $errorHandler;
     }
 
     /**
@@ -64,7 +74,29 @@ class GitHub
      */
     public function request(string $path): array
     {
-        return json_decode($this->getService()->request($path), true);
+        try {
+            return json_decode($this->getService()->request($path), true);
+        } catch (Exception $e) {
+            return $this->handleError($e);
+        }
+    }
+
+    /**
+     * Handle request errors (in a retarded way)
+     *
+     * @todo I should really handle errors in a less horrific way...
+     *
+     * @param \OAuth\Common\Exception\Exception $exception The PHPoAuthLib exception
+     *
+     * @return array
+     */
+    private function handleError(Exception $exception): array
+    {
+        try {
+            $this->errorHandler->handle($exception);
+        } catch (NotFoundException $e) {
+            return [];
+        }
     }
 
     /**

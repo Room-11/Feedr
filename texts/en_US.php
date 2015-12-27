@@ -90,5 +90,6 @@ $texts = [
     'modal.repositories.search.result.close'                        => 'Close',
 
     'modal.administrators.search.result.title'                      => 'Found administrators',
+    'modal.administrators.search.result.empty'                      => 'No users were found.',
     'modal.administrators.search.result.close'                      => 'Close',
 ];

@@ -9,12 +9,16 @@
             <div class="modal-body">
                 <table class="table table-hover data-table">
                     <tbody>
-                        <?php foreach ($this->administrators as $administrator) { ?>
-                            <tr>
-                                <td><img src="<?= $this->escape($administrator['avatar_url']); ?>" class="user-image" alt="<?= $this->escape($administrator['login']); ?>"></td>
-                                <td><a href="<?= $this->escape($administrator['html_url']); ?>" target="_blank"><?= $this->escape($administrator['login']); ?></a></td>
-                                <td class="text-right"><button class="btn btn-success btn-flat add-admin" data-id="<?= $this->escape((string) $administrator['id']); ?>" data-avatar="<?= $this->escape($administrator['avatar_url']); ?>" data-username="<?= $this->escape($administrator['login']); ?>"><i class="fa fa-fw fa-plus"></i></button></td>
-                            </tr>
+                        <?php if (!$this->administrators) { ?>
+                            <td><?= $this->translate('modal.administrators.search.result.empty'); ?></td>
+                        <?php } else { ?>
+                            <?php foreach ($this->administrators as $administrator) { ?>
+                                <tr>
+                                    <td><img src="<?= $this->escape($administrator['avatar_url']); ?>" class="user-image" alt="<?= $this->escape($administrator['login']); ?>"></td>
+                                    <td><a href="<?= $this->escape($administrator['html_url']); ?>" target="_blank"><?= $this->escape($administrator['login']); ?></a></td>
+                                    <td class="text-right"><button class="btn btn-success btn-flat add-admin" data-id="<?= $this->escape((string) $administrator['id']); ?>" data-avatar="<?= $this->escape($administrator['avatar_url']); ?>" data-username="<?= $this->escape($administrator['login']); ?>"><i class="fa fa-fw fa-plus"></i></button></td>
+                                </tr>
+                            <?php } ?>
                         <?php } ?>
                     </tfoot>
                 </table>

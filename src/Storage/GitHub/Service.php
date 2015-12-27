@@ -114,7 +114,7 @@ class Service
             $repo  = array_pop($parts);
             $owner = array_pop($parts);
 
-            return $this->request('/repos/' . $owner . '/' . $repo);
+            return [$this->request('/repos/' . $owner . '/' . $repo)];
         }
 
         return $this->request('/search/repositories?q=' . urlencode($q))['items'];

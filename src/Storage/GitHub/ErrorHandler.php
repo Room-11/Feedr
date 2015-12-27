@@ -65,7 +65,6 @@ class ErrorHandler
      */
     public function handle(Exception $exception)
     {
-        var_dump(get_class($exception));
         switch (get_class($exception)) {
             case 'OAuth\Common\Http\Exception\TokenResponseException':
                 $this->handleTokenResponseException($exception);

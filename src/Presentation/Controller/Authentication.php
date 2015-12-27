@@ -18,7 +18,7 @@ use CodeCollab\Http\Response\Response;
 use CodeCollab\Http\Response\StatusCode;
 use CodeCollab\Http\Request\Request;
 use CodeCollab\Template\Html;
-use Feedr\Storage\GitHub;
+use Feedr\Storage\GitHub\Service as GitHub;
 use Feedr\Form\Logout as LogoutForm;
 use CodeCollab\Authentication\Authentication as User;
 
@@ -50,8 +50,8 @@ class Authentication
     /**
      * Renders the login page
      *
-     * @param \CodeCollab\Template\Html $template A HTML template renderer
-     * @param \Feedr\Storage\GitHub     $github   The GitHub storage
+     * @param \CodeCollab\Template\Html     $template A HTML template renderer
+     * @param \Feedr\Storage\GitHub\Service $github   The GitHub storage
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */
@@ -69,7 +69,7 @@ class Authentication
      *
      * @param \CodeCollab\Http\Request\Request          $request  The request object
      * @param \CodeCollab\Authentication\Authentication $user     The authentication object
-     * @param \Feedr\Storage\GitHub                     $github   The GitHub storage
+     * @param \Feedr\Storage\GitHub\Service             $github   The GitHub storage
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */

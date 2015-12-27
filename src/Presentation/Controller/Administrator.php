@@ -17,7 +17,7 @@ namespace Feedr\Presentation\Controller;
 use CodeCollab\Http\Response\Response;
 use CodeCollab\Http\Request\Request;
 use CodeCollab\Template\Html;
-use Feedr\Storage\GitHub;
+use Feedr\Storage\GitHub\Service as GitHub;
 
 /**
  * Repository controller
@@ -49,7 +49,7 @@ class Administrator
      *
      * @param \CodeCollab\Template\Html        $template A HTML template renderer
      * @param \CodeCollab\Http\Request\Request $request  The request object
-     * @param \Feedr\Storage\GitHub            $github   The GitHub storage
+     * @param \Feedr\Storage\GitHub\Service    $github   The GitHub storage
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */

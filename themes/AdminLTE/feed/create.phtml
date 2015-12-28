@@ -120,16 +120,19 @@
                         <div class="box-header">
                             <h3 class="box-title"><?= $this->translate('page.feeds.create.form.admins.title'); ?></h3>
                             <div class="box-tools pull-right">
-                                <span data-toggle="tooltip" title="" class="badge bg-green admin-amount" data-translation="<?= $this->translate('page.feeds.create.form.admins.amount.%'); ?>" data-original-title="<?= $this->translate('page.feeds.create.form.admins.amount.%', [0]); ?>">0</span>
+                                <span data-toggle="tooltip" title="" class="badge bg-green admin-amount" data-translation="<?= $this->translate('page.feeds.create.form.admins.amount.%'); ?>" data-original-title="<?= $this->translate('page.feeds.create.form.admins.amount.%', [1]); ?>">1</span>
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-question"></i></button>
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
                         <div class="box-body">
-                            <input type="hidden" class="form-control" name="administrators" value="<?= $this->escape($this->form['administrators']->getValue()); ?>">
+                            <?php if ($this->form->isValidated()) { ?>
+                                <input type="hidden" class="form-control" name="administrators" value="<?= $this->escape($this->form['administrators']->getValue()); ?>">
+                            <?php } else { ?>
+                                <input type="hidden" class="form-control" name="administrators" value="<?= $this->escape(json_encode([['id' => $this->user->id]])); ?>">
+                            <?php } ?>
                             <div class="input-group">
                                 <input class="form-control" name="admin-search" placeholder="<?= $this->translate('page.feeds.create.form.admins.add.placeholder'); ?>">
-
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-flat btn-success" data-action="admin-search"><i class="fa fa-fw fa-plus"></i></button>
                                 </div>
@@ -145,6 +148,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <tr class="administrator" data-id="<?= $this->escape((string) $this->user->id); ?>">
+                                            <td><img src="<?= $this->escape($this->user->avatar_url); ?>" class="user-image" alt="<?= $this->escape($this->user->login); ?>"></td>
+                                            <td><?= $this->escape($this->user->login); ?> (you)</td>
+                                            <td><a href="<?= $this->escape($this->user->html_url); ?>" target="_blank"><?= $this->escape($this->user->html_url); ?></a></td>
+                                            <td class="text-right"><button class="btn btn-danger btn-flat confirm"><i class="fa fa-trash-o"></i></button></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

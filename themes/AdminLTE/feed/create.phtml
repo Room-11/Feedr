@@ -149,9 +149,9 @@
                                     </thead>
                                     <tbody>
                                         <tr class="administrator" data-id="<?= $this->escape((string) $this->user->id); ?>">
-                                            <td><img src="<?= $this->escape($this->user->avatar_url); ?>" class="user-image" alt="<?= $this->escape($this->user->login); ?>"></td>
-                                            <td><?= $this->escape($this->user->login); ?> (you)</td>
-                                            <td><a href="<?= $this->escape($this->user->html_url); ?>" target="_blank"><?= $this->escape($this->user->html_url); ?></a></td>
+                                            <td><img src="<?= $this->escape($this->user->avatar); ?>" class="user-image" alt="<?= $this->escape($this->user->username); ?>"></td>
+                                            <td><?= $this->escape($this->user->username); ?> (you)</td>
+                                            <td><a href="<?= $this->escape($this->user->url); ?>" target="_blank"><?= $this->escape($this->user->url); ?></a></td>
                                             <td class="text-right"><button class="btn btn-danger btn-flat confirm"><i class="fa fa-trash-o"></i></button></td>
                                         </tr>
                                     </tbody>

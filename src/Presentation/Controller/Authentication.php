@@ -89,9 +89,9 @@ class Authentication
 
         $user = $github->request('user');
 
-        $authenticator->logInWithOauth($user);
-
         $userStorage->persistUser($user);
+
+        $authenticator->logInWithOauth($userStorage->getUser($user['id']));
 
         $log->addLogInEntry($user['id'], $request->server('REMOTE_ADDR'));
 

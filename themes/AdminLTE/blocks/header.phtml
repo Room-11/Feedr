@@ -15,16 +15,16 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $this->escape($this->user->avatar_url); ?>" class="user-image" alt="<?= $this->escape($this->user->login); ?>">
-                        <span class="hidden-xs"><?= $this->escape($this->user->login); ?></span>
+                        <img src="<?= $this->escape($this->user->avatar); ?>" class="user-image" alt="<?= $this->escape($this->user->username); ?>">
+                        <span class="hidden-xs"><?= $this->escape($this->user->username); ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
-                            <img src="<?= $this->escape($this->user->avatar_url); ?>" class="img-circle" alt="<?= $this->escape($this->user->login); ?>">
+                            <img src="<?= $this->escape($this->user->avatar); ?>" class="img-circle" alt="<?= $this->escape($this->user->username); ?>">
                             <p>
-                                <?= $this->escape($this->user->login); ?>
+                                <?= $this->escape($this->user->username); ?>
                                 <?php if ($this->user->name) echo ' - ' . $this->escape($this->user->name); ?>
-                                <small><?= $this->translate('nav.user.member-since.%', [(new \DateTime($this->user->created_at))->format('d-m-Y')]); ?></small>
+                                <small><?= $this->translate('nav.user.member-since.%', [(new \DateTime($this->user->created))->format('d-m-Y')]); ?></small>
                             </p>
                         </li>
                         <li class="user-footer">

@@ -116,4 +116,25 @@ class User
 
         return (bool) $stmt->fetchColumn(0);
     }
+
+    /**
+     * Gets a user
+     *
+     * @param int $userId The id of the user
+     *
+     * @return array The user data
+     */
+    public function getUser(int $userId): array
+    {
+        $query = 'SELECT id, username, name, avatar, url, created';
+        $query.= ' FROM users';
+        $query.= ' WHERE id = :id';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'id' => $userId,
+        ]);
+
+        return $stmt->fetch();
+    }
 }

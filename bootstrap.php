@@ -108,7 +108,7 @@ $auryn->define('CodeCollab\Encryption\Defuse\Encryptor', [':key' => file_get_con
 $auryn->define('CodeCollab\Http\Cookie\Factory', [':domain' => $request->server('SERVER_NAME'), ':secure' => $request->isEncrypted()]);
 $auryn->define('CodeCollab\Theme\Theme', [':themePath' => __DIR__ . '/themes', ':theme' => 'AdminLTE']);
 $auryn->define('Feedr\Presentation\Template\Html', [':basePage' => '/page.phtml']);
-$auryn->define('Feedr\Storage\GitHub', [':key' => $githubCredentials['key'], ':secret' => $githubCredentials['secret']]);
+$auryn->define('Feedr\Storage\GitHub\Service', [':key' => $githubCredentials['key'], ':secret' => $githubCredentials['secret']]);
 $auryn->alias('CodeCollab\CsrfToken\Token', 'CodeCollab\CsrfToken\Handler');
 $auryn->alias('CodeCollab\Authentication\Authentication', 'Feedr\Authentication\GitHub');
 $auryn->alias('CodeCollab\CsrfToken\Storage\Storage', 'Feedr\Storage\TokenSession');
@@ -136,5 +136,5 @@ $frontController = new FrontController(
 try {
     $frontController->run($request);
 } catch (\Throwable $e) {
-    $auryn->execute('Feedr\Presentation\Controller\Error::generic');
+    $auryn->execute('Feedr\Presentation\Controller\Error::generic')->send();
 }

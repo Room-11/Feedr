@@ -68,7 +68,11 @@ class Error
      */
     public function methodNotAllowed(Html $template): Response
     {
-        return $this->generic($template);
+        $this->response->setContent($template->renderPage('/error/generic.phtml'));
+
+        $this->response->setStatusCode(StatusCode::METHOD_NOT_ALLOWED);
+
+        return $this->response;
     }
 
     /**
@@ -82,7 +86,7 @@ class Error
     {
         $this->response->setContent($template->renderPage('/error/generic.phtml'));
 
-        $this->response->setStatusCode(StatusCode::METHOD_NOT_ALLOWED);
+        $this->response->setStatusCode(StatusCode::INTERNAL_SERVER_ERROR);
 
         return $this->response;
     }

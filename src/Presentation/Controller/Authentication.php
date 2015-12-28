@@ -22,6 +22,7 @@ use Feedr\Storage\GitHub\Service as GitHub;
 use Feedr\Form\Logout as LogoutForm;
 use Feedr\Authentication\GitHub as Authenticator;
 use Feedr\Storage\Sql\User as UserStorage;
+use Feedr\Storage\Sql\Log;
 
 /**
  * Authentication controller
@@ -72,6 +73,7 @@ class Authentication
      * @param \Feedr\Authentication\GitHub     $authenticator The authentication object
      * @param \Feedr\Storage\GitHub\Service    $github        The GitHub storage
      * @param \Feedr\Storage\Sql\User          $userStorage   The user storage
+     * @param \Feedr\Storage\Sql\Log           $log           The log storage
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */
@@ -79,7 +81,8 @@ class Authentication
         Request $request,
         Authenticator $authenticator,
         GitHub $github,
-        UserStorage $userStorage
+        UserStorage $userStorage,
+        Log $log
     ): Response
     {
         $github->requestAccessToken($request->get('code'));
@@ -89,6 +92,8 @@ class Authentication
         $authenticator->logInWithOauth($user);
 
         $userStorage->persistUser($user);
+
+        $log->addLogInEntry($user['id'], $request->server('REMOTE_ADDR'));
 
         $this->response->setStatusCode(StatusCode::FOUND);
         $this->response->addHeader('Location', $request->getBaseUrl());

@@ -27,6 +27,7 @@
         "codecollab/i18n": "dev-master",
         "codecollab/router": "dev-master",
         "codecollab/template": "dev-master",
-        "codecollab/theme": "dev-master"
+        "codecollab/theme": "dev-master",
+        "erusev/parsedown": "1.6.*"
     }
 }

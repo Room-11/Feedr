@@ -198,12 +198,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeCollab/Http.git",
-                "reference": "e523979458bdd98582ad5cd09aac195e42c432db"
+                "reference": "198c7f39469eb0da834f05aa469ed942c31a0cc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodeCollab/Http/zipball/e523979458bdd98582ad5cd09aac195e42c432db",
-                "reference": "e523979458bdd98582ad5cd09aac195e42c432db",
+                "url": "https://api.github.com/repos/CodeCollab/Http/zipball/198c7f39469eb0da834f05aa469ed942c31a0cc3",
+                "reference": "198c7f39469eb0da834f05aa469ed942c31a0cc3",
                 "shasum": ""
             },
             "require": {
@@ -240,7 +240,7 @@
                 "response",
                 "session"
             ],
-            "time": "2015-09-13 17:42:06"
+            "time": "2015-12-27 22:28:22"
         },
         {
             "name": "codecollab/i18n",
@@ -471,16 +471,16 @@
         },
         {
             "name": "lusitanian/oauth",
-            "version": "v0.8.5",
+            "version": "v0.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Lusitanian/PHPoAuthLib.git",
-                "reference": "798260e55ac994636a9fa8b61adfdb67aab389c9"
+                "reference": "769fea1bb53845c7b03cca97cbdd0708e9ec26da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Lusitanian/PHPoAuthLib/zipball/798260e55ac994636a9fa8b61adfdb67aab389c9",
-                "reference": "798260e55ac994636a9fa8b61adfdb67aab389c9",
+                "url": "https://api.github.com/repos/Lusitanian/PHPoAuthLib/zipball/769fea1bb53845c7b03cca97cbdd0708e9ec26da",
+                "reference": "769fea1bb53845c7b03cca97cbdd0708e9ec26da",
                 "shasum": ""
             },
             "require": {
@@ -534,7 +534,7 @@
                 "oauth",
                 "security"
             ],
-            "time": "2015-12-10 05:40:17"
+            "time": "2015-12-21 00:06:34"
         },
         {
             "name": "matthiasmullie/minify",

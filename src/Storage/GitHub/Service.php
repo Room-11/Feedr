@@ -109,15 +109,51 @@ class Service
     public function searchRepository(string $q): array
     {
         if (filter_var($q, FILTER_VALIDATE_URL) !== false || substr_count($q, '/') === 1) {
-            $parts = explode('/', $q);
-
-            $repo  = array_pop($parts);
-            $owner = array_pop($parts);
-
-            return [$this->request('/repos/' . $owner . '/' . $repo)];
+            return $this->searchRepositoryByName($q);
         }
 
-        return $this->request('/search/repositories?q=' . urlencode($q))['items'];
+        $this->searchRepositoryByKeywords($q);
+    }
+
+    /**
+     * Searches a repository by name
+     *
+     * @param string $q The name of the repo (either a repo URI or a owner/name pair)
+     *
+     * @return array List of repositories found
+     */
+    private function searchRepositoryByName(string $q): array
+    {
+        $parts = explode('/', $q);
+
+        $repo  = array_pop($parts);
+        $owner = array_pop($parts);
+
+        $repositories = $this->request('/repos/' . $owner . '/' . $repo);
+
+        if (!$repositories) {
+            return [];
+        }
+
+        return [$repositories];
+    }
+
+    /**
+     * Searches a repository by keyword(s)
+     *
+     * @param string $q The search word(s)
+     *
+     * @return array List of repositories found
+     */
+    private function searchRepositoryByKeywords(string $q): array
+    {
+        $repositories = $this->request('/search/repositories?q=' . urlencode($q));
+
+        if (!$repositories) {
+            return [];
+        }
+
+        return [$repositories['items']];
     }
 
     /**
@@ -131,6 +167,39 @@ class Service
     {
         return $this->request('/search/users?q=' . urlencode($q))['items'];
     }
+
+    /**
+     * Retrieves releases based on a list of owner/name repo pairs
+     *
+     * @param array $ids The owner/name repo pairs
+     *
+     * @return array List of releases sorted by timestamp
+     */
+    public function getReleases(array $ids): array
+    {
+        $releases = [];
+
+        foreach ($ids as $id) {
+            $repoReleases = $this->request('repos/' . $id . '/releases');
+
+            foreach ($repoReleases as $release) {
+
+                $releases[$release['published_at']] = [
+                    'url'         => $release['html_url'],
+                    'version'     => $release['tag_name'],
+                    'name'        => $id,
+                    'avatar'      => $release['author']['avatar_url'],
+                    'description' => $release['body'],
+                    'timestamp'   => new \DateTime($release['published_at']),
+                ];
+            }
+        }
+
+        krsort($releases);
+
+        return $releases;
+    }
+
 
     /**
      * Proxies the GitHub service method calls

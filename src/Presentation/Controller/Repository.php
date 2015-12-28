@@ -18,7 +18,6 @@ use CodeCollab\Http\Response\Response;
 use CodeCollab\Http\Request\Request;
 use CodeCollab\Template\Html;
 use Feedr\Storage\GitHub\Service as GitHub;
-use OAuth\Common\Http\Exception\TokenResponseException;
 
 /**
  * Repository controller

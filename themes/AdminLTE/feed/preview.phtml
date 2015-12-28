@@ -1,0 +1,35 @@
+<?php declare(strict_types=1); ?>
+<?php if (!$this->releases) { ?>
+    <div class="direct-chat-messages">
+        <div class="direct-chat-msg no-releases">
+            <p>No repositories selected yet or none of the repositories have GitHub releases.</p>
+        </div>
+    </div>
+<?php } else { ?>
+    <?php $i = 0; ?>
+    <?php foreach ($this->releases as $release) { ?>
+        <?php if (++$i % 2) { ?>
+            <div class="direct-chat-msg">
+                <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-left"><?= $this->escape($release['name']); ?> <?= $this->escape($release['version']); ?></span>
+                    <span class="direct-chat-timestamp pull-right"><?= $release['timestamp']->format('Y-m-d H:i:s'); ?></span>
+                </div>
+                <img class="direct-chat-img" src="<?= $this->escape($release['avatar']); ?>" alt="<?= $this->escape($release['name']); ?>">
+                <div class="direct-chat-text">
+                    <?= $this->escape($release['description']); ?>
+                </div>
+            </div>
+        <?php } else { ?>
+            <div class="direct-chat-msg right">
+                <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-right"><?= $this->escape($release['name']); ?> <?= $this->escape($release['version']); ?></span>
+                    <span class="direct-chat-timestamp pull-left"><?= $release['timestamp']->format('Y-m-d H:i:s'); ?></span>
+                </div>
+                <img class="direct-chat-img" src="<?= $this->escape($release['avatar']); ?>" alt="<?= $this->escape($release['name']); ?>">
+                <div class="direct-chat-text">
+                    <?= $this->escape($release['description']); ?>
+                </div>
+            </div>
+        <?php } ?>
+    <?php } ?>
+<?php } ?>

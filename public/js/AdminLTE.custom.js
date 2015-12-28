@@ -110,6 +110,32 @@
 
         $counter.text(repositories.length);
         $counter[0].setAttribute('data-original-title', $counter.data('translation').replace('%d', repositories.length));
+
+        updatePreview();
+    };
+
+    var updatePreview = function() {
+        var ids = [];
+
+        for (var i = 0; i < repositories.length; i++) {
+            ids.push(repositories[i].name);
+        }
+
+        var overlay = document.createElement('div');
+        var icon    = document.createElement('i');
+
+        overlay.setAttribute('class', 'overlay');
+        icon.setAttribute('class', 'fa fa-refresh fa-spin');
+
+        overlay.appendChild(icon);
+
+        $('.preview').append(overlay);
+
+        $.get('/feeds/preview', {repositories: ids}, function(preview) {
+            $('.preview .direct-chat-messages').html(preview);
+
+            $('.preview .overlay').remove();
+        });
     };
 
     $(document).on('keypress', '[name="repo-search"]', function(e) {

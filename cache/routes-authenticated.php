@@ -43,6 +43,11 @@
         0 => 'Feedr\\Presentation\\Controller\\Administrator',
         1 => 'addRow',
       ),
+      '/feeds/preview' => 
+      array (
+        0 => 'Feedr\\Presentation\\Controller\\Feed',
+        1 => 'preview',
+      ),
     ),
     'POST' => 
     array (

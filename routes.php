@@ -33,5 +33,6 @@ if (!$user->isLoggedIn()) {
         ->get('/repositories/add', ['Feedr\Presentation\Controller\Repository', 'addRow'])
         ->get('/administrators/search', ['Feedr\Presentation\Controller\Administrator', 'search'])
         ->get('/administrators/add', ['Feedr\Presentation\Controller\Administrator', 'addRow'])
+        ->get('/feeds/preview', ['Feedr\Presentation\Controller\Feed', 'preview'])
     ;
 }

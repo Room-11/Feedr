@@ -16,7 +16,7 @@
                 </div>
                 <img class="direct-chat-img" src="<?= $this->escape($release['avatar']); ?>" alt="<?= $this->escape($release['name']); ?>">
                 <div class="direct-chat-text">
-                    <?= $this->escape($release['description']); ?>
+                    <?= $this->parsedown->text($release['description']); ?>
                 </div>
             </div>
         <?php } else { ?>
@@ -27,7 +27,7 @@
                 </div>
                 <img class="direct-chat-img" src="<?= $this->escape($release['avatar']); ?>" alt="<?= $this->escape($release['name']); ?>">
                 <div class="direct-chat-text">
-                    <?= $this->escape($release['description']); ?>
+                    <?= $this->parsedown->text($release['description']); ?>
                 </div>
             </div>
         <?php } ?>

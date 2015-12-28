@@ -21,6 +21,7 @@ use CodeCollab\I18n\Translator;
 use CodeCollab\Authentication\Authentication;
 use CodeCollab\CsrfToken\Token;
 use CodeCollab\Http\Request\Request;
+use Parsedown;
 
 /**
  * HTML page template renderer
@@ -63,6 +64,11 @@ class Html extends BaseTemplate
     protected $request;
 
     /**
+     * @var \Parsedown The parsedown formatter
+     */
+    protected $parsedown;
+
+    /**
      * Creates instance
      *
      * @param string                                    $basePage   The base (skeleton) page template
@@ -72,6 +78,7 @@ class Html extends BaseTemplate
      * @param \CodeCollab\Authentication\Authentication $user       Instance of an authenticator
      * @param \CodeCollab\CsrfToken\Token               $csrfToken  The CSRF token
      * @param \CodeCollab\Http\Request\Request          $request    The request object
+     * @param \Parsedown                                $parsedown  The parsedown formatter
      */
     public function __construct(
         string $basePage,
@@ -80,7 +87,8 @@ class Html extends BaseTemplate
         Translator $translator,
         Authentication $user,
         Token $csrfToken,
-        Request $request
+        Request $request,
+        Parsedown $parsedown
     )
     {
         parent::__construct($basePage);
@@ -91,6 +99,7 @@ class Html extends BaseTemplate
         $this->user       = $user;
         $this->csrfToken  = $csrfToken;
         $this->request    = $request;
+        $this->parsedown  = $parsedown;
     }
 
     /**

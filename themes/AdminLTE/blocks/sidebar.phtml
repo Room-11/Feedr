@@ -32,8 +32,12 @@
                     <span class="label label-primary pull-right">1</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/feeds"><i class="fa fa-circle-o"></i> <?= $this->translate('nav.sidebar.main.items.feeds.yours'); ?></a></li>
-                    <li><a href="/popular"><i class="fa fa-circle-o"></i> <?= $this->translate('nav.sidebar.main.items.feeds.popular'); ?></a></li>
+                    <li <?php if ($this->request->matches('/feeds/create')) echo 'class="active"'; ?>>
+                        <a href="/feeds/create"><i class="fa fa-circle-o"></i> <?= $this->translate('nav.sidebar.main.items.feeds.create'); ?></a>
+                    </li>
+                    <li <?php if ($this->request->matches('/feeds')) echo 'class="active"'; ?>>
+                        <a href="/feeds"><i class="fa fa-circle-o"></i> <?= $this->translate('nav.sidebar.main.items.feeds.yours'); ?></a>
+                    </li>
                 </ul>
             </li>
             <li>

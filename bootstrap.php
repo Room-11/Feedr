@@ -68,6 +68,7 @@ $user = new Authenticator($session);
  * Setup the router
  */
 $routeCache     = $user->isLoggedIn() ? '/cache/routes-authenticated.php' : '/cache/routes.php';
+$routeCache     = $user->isAdmin() ? '/cache/routes-admin.php' : $routeCache;
 $routeCollector = new RouteCollector(new RouteParser(), new RouteDataGenerator());
 
 $router = new Router($routeCollector, function($dispatchData) {

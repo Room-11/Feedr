@@ -14,7 +14,7 @@ namespace Feedr;
 
 use CodeCollab\Http\Request\Request;
 use CodeCollab\Http\Session\Native as Session;
-use CodeCollab\Authentication\User;
+use Feedr\Authentication\GitHub as Authenticator;
 use CodeCollab\Encryption\Defuse\Decryptor;
 use CodeCollab\Router\Router;
 use FastRoute\RouteCollector;
@@ -62,7 +62,7 @@ $session = new Session('/', $request->server('SERVER_NAME'), $request->isEncrypt
 /**
  * Setup authentication object
  */
-$user = new User($session);
+$user = new Authenticator($session);
 
 /**
  * Setup the router
@@ -104,6 +104,7 @@ $auryn->share($user);
 $auryn->share($minifier);
 $auryn->share($translator);
 $auryn->share($decryptor);
+$auryn->share($dbConnection);
 $auryn->define('CodeCollab\Encryption\Defuse\Encryptor', [':key' => file_get_contents(__DIR__ . '/encryption.key')]);
 $auryn->define('CodeCollab\Http\Cookie\Factory', [':domain' => $request->server('SERVER_NAME'), ':secure' => $request->isEncrypted()]);
 $auryn->define('CodeCollab\Theme\Theme', [':themePath' => __DIR__ . '/themes', ':theme' => 'AdminLTE']);

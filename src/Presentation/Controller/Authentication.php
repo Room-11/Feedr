@@ -20,7 +20,8 @@ use CodeCollab\Http\Request\Request;
 use CodeCollab\Template\Html;
 use Feedr\Storage\GitHub\Service as GitHub;
 use Feedr\Form\Logout as LogoutForm;
-use CodeCollab\Authentication\Authentication as User;
+use Feedr\Authentication\GitHub as Authenticator;
+use Feedr\Storage\Sql\User as UserStorage;
 
 /**
  * Authentication controller
@@ -67,17 +68,27 @@ class Authentication
     /**
      * Handles the login form
      *
-     * @param \CodeCollab\Http\Request\Request          $request  The request object
-     * @param \CodeCollab\Authentication\Authentication $user     The authentication object
-     * @param \Feedr\Storage\GitHub\Service             $github   The GitHub storage
+     * @param \CodeCollab\Http\Request\Request $request       The request object
+     * @param \Feedr\Authentication\GitHub     $authenticator The authentication object
+     * @param \Feedr\Storage\GitHub\Service    $github        The GitHub storage
+     * @param \Feedr\Storage\Sql\User          $userStorage   The user storage
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */
-    public function doLogin(Request $request, User $user, GitHub $github): Response
+    public function doLogin(
+        Request $request,
+        Authenticator $authenticator,
+        GitHub $github,
+        UserStorage $userStorage
+    ): Response
     {
         $github->requestAccessToken($request->get('code'));
 
-        $user->logInWithOauth($github->request('user'));
+        $user = $github->request('user');
+
+        $authenticator->logInWithOauth($user);
+
+        $userStorage->persistUser($user);
 
         $this->response->setStatusCode(StatusCode::FOUND);
         $this->response->addHeader('Location', $request->getBaseUrl());
@@ -88,18 +99,18 @@ class Authentication
     /**
      * Handles the logout form
      *
-     * @param \Feedr\Form\Logout                        $form    The logout form
-     * @param \CodeCollab\Http\Request\Request          $request The request object
-     * @param \CodeCollab\Authentication\Authentication $user    The authentication object
+     * @param \Feedr\Form\Logout               $form          The logout form
+     * @param \CodeCollab\Http\Request\Request $request       The request object
+     * @param \Feedr\Authentication\GitHub     $authenticator The authentication object
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */
-    public function doLogout(LogoutForm $form, Request $request, User $user): Response
+    public function doLogout(LogoutForm $form, Request $request, Authenticator $authenticator): Response
     {
         $form->bindRequest($request);
 
         if ($form->isValid()) {
-            $user->logOut();
+            $authenticator->logOut();
         }
 
         $this->response->setStatusCode(StatusCode::FOUND);

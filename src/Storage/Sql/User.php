@@ -126,7 +126,7 @@ class User
      */
     public function getUser(int $userId): array
     {
-        $query = 'SELECT id, username, name, avatar, url, created';
+        $query = 'SELECT id, username, name, avatar, url, created, admin';
         $query.= ' FROM users';
         $query.= ' WHERE id = :id';
 

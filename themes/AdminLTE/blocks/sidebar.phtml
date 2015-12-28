@@ -52,9 +52,11 @@
                     <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> <?= $this->translate('nav.sidebar.main.items.notifications.added'); ?></a></li>
                 </ul>
             </li>
-            <li class="header"><?= $this->translate('nav.sidebar.admin.title'); ?></li>
-            <li><a href="#"><i class="fa fa-users"></i> <span><?= $this->translate('nav.sidebar.admin.items.users'); ?></span></a></li>
-            <li><a href="#"><i class="fa fa-warning text-red"></i> <span><?= $this->translate('nav.sidebar.admin.items.errors'); ?></span></a></li>
+            <?php if ($this->user->isAdmin()) { ?>
+                <li class="header"><?= $this->translate('nav.sidebar.admin.title'); ?></li>
+                <li><a href="#"><i class="fa fa-users"></i> <span><?= $this->translate('nav.sidebar.admin.items.users'); ?></span></a></li>
+                <li><a href="#"><i class="fa fa-warning text-red"></i> <span><?= $this->translate('nav.sidebar.admin.items.errors'); ?></span></a></li>
+            <?php } ?>
         </ul>
     </section>
 </aside>

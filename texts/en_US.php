@@ -58,6 +58,7 @@ $texts = [
     'page.dashboard.feed.filter.placeholder'                        => 'Type keywords ...',
     'page.dashboard.feed.filter.submit'                             => 'Filter',
     'page.dashboard.notifications.title'                            => 'Notifications',
+    'page.dashboard.notifications.login'                            => 'Login',
     'page.dashboard.notifications.requested'                        => 'Feed requested',
     'page.dashboard.notifications.view-more'                        => 'View more notifications',
 

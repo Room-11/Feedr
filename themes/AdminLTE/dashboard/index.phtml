@@ -132,6 +132,23 @@
                     </div>
                     <div class="box-body">
                         <ul class="products-list product-list-in-box">
+                            <?php foreach ($this->notifications as $notification) { ?>
+                                <li class="item">
+                                    <div class="product-img">
+                                        <i class="fa fa-unlock-alt fa-fw"></i>
+                                    </div>
+                                    <div class="product-info">
+                                        <a href="/" class="product-title"><?= $this->translate('page.dashboard.notifications.' . $notification['action']); ?>
+                                            <div class="time pull-right">
+                                                <time datetime="2015-12-20T17:39:14Z" is="relative-time">Dec 20, 2015</time>
+                                            </div>
+                                            <span class="product-description">
+                                              From IP address: <?= $this->escape($notification['ip']); ?>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </li>
+                            <?php } ?>
                             <li class="item">
                                 <div class="product-img">
                                     <i class="fa fa-bolt fa-fw"></i>

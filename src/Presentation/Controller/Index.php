@@ -16,6 +16,8 @@ namespace Feedr\Presentation\Controller;
 
 use CodeCollab\Http\Response\Response;
 use CodeCollab\Template\Html;
+use Feedr\Authentication\GitHub as Authenticator;
+use Feedr\Storage\Sql\Log;
 
 /**
  * Index controller
@@ -45,13 +47,17 @@ class Index
     /**
      * Renders the dashboard
      *
-     * @param \CodeCollab\Template\Html $template A HTML template renderer
+     * @param \CodeCollab\Template\Html    $template      A HTML template renderer
+     * @param \Feedr\Authentication\GitHub $authenticator The authentication object
+     * @param \Feedr\Storage\Sql\Log       $log           The log storage
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */
-    public function index(Html $template): Response
+    public function index(Html $template, Authenticator $authenticator, Log $log): Response
     {
-        $this->response->setContent($template->renderPage('/dashboard/index.phtml'));
+        $this->response->setContent($template->renderPage('/dashboard/index.phtml', [
+            'notifications' => $log->getLastUserNotifications($authenticator->id),
+        ]));
 
         return $this->response;
     }

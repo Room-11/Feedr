@@ -60,4 +60,29 @@ class Log
             'timestamp' => (new \DateTime())->format('Y-m-d H:i:s'),
         ]);
     }
+
+    public function getLastUserNotifications(int $userId)
+    {
+        $loginNotifications = $this->getLastLogInEntries($userId);
+
+        return $loginNotifications;
+    }
+
+    private function getLastLogInEntries(int $userId): array
+    {
+        $query = 'SELECT id, action, user_id, timestamp, data, ip';
+        $query.= ' FROM log';
+        $query.= ' WHERE user_id = :user_id';
+        $query.= ' AND action = :action';
+        $query.= ' ORDER BY id DESC';
+        $query.= ' LIMIT 20 OFFSET 0';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'user_id' => $userId,
+            'action'  => 'login',
+        ]);
+
+        return $stmt->fetchAll();
+    }
 }

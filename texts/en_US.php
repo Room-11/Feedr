@@ -94,4 +94,6 @@ $texts = [
     'modal.administrators.search.result.title'                      => 'Found administrators',
     'modal.administrators.search.result.empty'                      => 'No users were found.',
     'modal.administrators.search.result.close'                      => 'Close',
+
+    'feeds.preview.empty'                                           => 'No repositories selected yet or none of the repositories have GitHub releases.',
 ];

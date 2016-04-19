@@ -112,7 +112,7 @@ class Service
             return $this->searchRepositoryByName($q);
         }
 
-        $this->searchRepositoryByKeywords($q);
+        return $this->searchRepositoryByKeywords($q);
     }
 
     /**
@@ -153,7 +153,7 @@ class Service
             return [];
         }
 
-        return [$repositories['items']];
+        return $repositories['items'];
     }
 
     /**

@@ -38,6 +38,10 @@
     margin-left:  0;
 }
 
+table.github-api-result {
+    margin-bottom: 0;
+}
+
 table.github-api-result > tbody > tr > td {
     vertical-align: middle;
 }

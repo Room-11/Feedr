@@ -43,7 +43,7 @@
  * @license    See the LICENSE file
  * @version    1.0.0
  */
-namespace Feedr\Storage\Github;
+namespace Feedr\Storage\GitHub;
 
 use OAuth\Common\Exception\Exception;
 use OAuth\Common\Http\Exception\TokenResponseException;
@@ -79,7 +79,7 @@ class ErrorHandler
      *
      * @param \OAuth\Common\Http\Exception\TokenResponseException $exception The original oAuth exception
      *
-     * @throws \Feedr\Storage\Github\NptFoundException When trying to retrieve a resource which does not exist
+     * @throws \Feedr\Storage\GitHub\NptFoundException When trying to retrieve a resource which does not exist
      */
     private function handleTokenResponseException(TokenResponseException $exception)
     {

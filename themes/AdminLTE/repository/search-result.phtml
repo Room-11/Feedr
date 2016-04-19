@@ -9,16 +9,16 @@
             <div class="modal-body">
                 <table class="table table-hover data-table github-api-result">
                     <tbody>
-                        <?php if (!$this->repositories) { ?>
+                        <?php if (!count($this->repositories)) { ?>
                             <tr>
                                 <td><?= $this->translate('modal.repositories.search.result.empty'); ?></td>
                             </tr>
                         <?php } else { ?>
                             <?php foreach ($this->repositories as $repository) { ?>
                                 <tr>
-                                    <td><img src="<?= $this->escape($repository['owner']['avatar_url']); ?>" class="user-image" alt="<?= $this->escape($repository['owner']['login']); ?>"></td>
-                                    <td><a href="<?= $this->escape($repository['html_url']); ?>" target="_blank"><?= $this->escape($repository['full_name']); ?></a></td>
-                                    <td class="text-right"><button class="btn btn-success btn-flat add-repo" data-id="<?= $this->escape((string) $repository['id']); ?>" data-repo="<?= $this->escape($repository['full_name']); ?>"><i class="fa fa-fw fa-plus"></i></button></td>
+                                    <td><img src="<?= $this->escape($repository->getOwner()->getAvatarUrl()); ?>" class="user-image" alt="<?= $this->escape($repository->getOwner()->getName()); ?>"></td>
+                                    <td><a href="<?= $this->escape($repository->getHtmlUrl()); ?>" target="_blank"><?= $this->escape($repository->getFullName()); ?></a></td>
+                                    <td class="text-right"><button class="btn btn-success btn-flat add-repo" data-id="<?= $repository->getId(); ?>" data-repo="<?= $this->escape($repository->getFullName()); ?>"><i class="fa fa-fw fa-plus"></i></button></td>
                                 </tr>
                             <?php } ?>
                         <?php }?>

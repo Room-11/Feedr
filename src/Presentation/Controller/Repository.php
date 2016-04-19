@@ -17,7 +17,7 @@ namespace Feedr\Presentation\Controller;
 use CodeCollab\Http\Response\Response;
 use CodeCollab\Http\Request\Request;
 use CodeCollab\Template\Html;
-use Feedr\Storage\GitHub\Service as GitHub;
+use Feedr\Storage\GitHub\Repository as RepositoryApi;
 
 /**
  * Repository controller
@@ -47,16 +47,16 @@ class Repository
     /**
      * Renders the search results modal
      *
-     * @param \CodeCollab\Template\Html        $template A HTML template renderer
-     * @param \CodeCollab\Http\Request\Request $request  The request object
-     * @param \Feedr\Storage\GitHub\Service    $github   The GitHub storage
+     * @param \CodeCollab\Template\Html        $template      A HTML template renderer
+     * @param \CodeCollab\Http\Request\Request $request       The request object
+     * @param \Feedr\Storage\GitHub\Repository $repositoryApi The GitHub storage
      *
      * @return \CodeCollab\Http\Response\Response The HTTP response
      */
-    public function search(Html $template, Request $request, GitHub $github): Response
+    public function search(Html $template, Request $request, RepositoryApi $repositoryApi): Response
     {
         $this->response->setContent($template->render('/repository/search-result.phtml', [
-            'repositories' => $github->searchRepository($request->get('repo')),
+            'repositories' => $repositoryApi->search($request->get('repo')),
         ]));
 
         return $this->response;

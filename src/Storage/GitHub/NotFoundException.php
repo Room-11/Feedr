@@ -12,7 +12,7 @@
  * @license    See the LICENSE file
  * @version    1.0.0
  */
-namespace Feedr\Storage\Github;
+namespace Feedr\Storage\GitHub;
 
 /**
  * Exception which gets thrown when trying to retrieve a resource that could not be found

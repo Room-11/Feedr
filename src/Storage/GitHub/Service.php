@@ -106,13 +106,13 @@ class Service
      *
      * @return array List of repositories found
      */
-    public function searchRepository(string $q): array
+    public function searchRepository(string $q): RepositoryCollection
     {
         if (filter_var($q, FILTER_VALIDATE_URL) !== false || substr_count($q, '/') === 1) {
-            return $this->searchRepositoryByName($q);
+            return RepositoryCollection::createFromGitHubApiResult($this->searchRepositoryByName($q));
         }
 
-        return $this->searchRepositoryByKeywords($q);
+        return RepositoryCollection::createFromGitHubApiResult($this->searchRepositoryByKeywords($q));
     }
 
     /**

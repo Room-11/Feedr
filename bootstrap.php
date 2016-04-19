@@ -135,8 +135,8 @@ $frontController = new FrontController(
 /**
  * Run the application
  */
-try {
+//try {
     $frontController->run($request);
-} catch (\Throwable $e) {
-    $auryn->execute('Feedr\Presentation\Controller\Error::generic')->send();
-}
+//} catch (\Throwable $e) {
+//    $auryn->execute('Feedr\Presentation\Controller\Error::generic')->send();
+//}

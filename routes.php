@@ -29,6 +29,7 @@ if (!$user->isLoggedIn()) {
         ->get('/', ['Feedr\Presentation\Controller\Index', 'index'])
         ->post('/logout', ['Feedr\Presentation\Controller\Authentication', 'doLogout'])
         ->get('/feeds/create', ['Feedr\Presentation\Controller\Feed', 'create'])
+        ->post('/feeds/create', ['Feedr\Presentation\Controller\Feed', 'doCreate'])
         ->get('/repositories/search', ['Feedr\Presentation\Controller\Repository', 'search'])
         ->get('/repositories/add', ['Feedr\Presentation\Controller\Repository', 'addRow'])
         ->get('/administrators/search', ['Feedr\Presentation\Controller\Administrator', 'search'])

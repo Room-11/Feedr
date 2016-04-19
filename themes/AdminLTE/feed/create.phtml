@@ -25,8 +25,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label><?= $this->translate('page.feeds.create.form.basic.name.label'); ?></label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon <?php if (!$this->form['name']->isValid()) echo 'has-error'; ?>">
+                                        <div class="input-group <?php if (!$this->form['name']->isValid()) echo 'has-error'; ?>">
+                                            <div class="input-group-addon">
                                                 <i class="fa">&#xf09e;</i>
                                             </div>
                                             <input type="text" class="form-control" name="name" value="<?= $this->escape($this->form['name']->getValue()); ?>">
@@ -52,14 +52,14 @@
                                     <div class="form-group">
                                         <label>&nbsp;</label>
                                         <div class="form-group">
-                                            <input type="submit" class="form-control btn btn-flat btn-success" name="name" value="<?= $this->translate('page.feeds.create.form.submit'); ?>">
+                                            <input type="submit" class="form-control btn btn-flat btn-success" value="<?= $this->translate('page.feeds.create.form.submit'); ?>">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row <?php if ($this->form['visibility']->getValue() !== 'private') echo 'collapse'; ?>">
                                 <div class="col-md-6">
-                                    <div class="form-group <?php if (!$this->form['password']->isValid()) echo 'has-error'; ?>">
+                                    <div class="form-group <?php if ($this->passwordError || !$this->form['password']->isValid()) echo 'has-error'; ?>">
                                         <label><?= $this->translate('page.feeds.create.form.basic.password.label'); ?></label>
                                         <div class="input-group">
                                             <div class="input-group-addon">
@@ -70,7 +70,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group <?php if (!$this->form['password2']->isValid()) echo 'has-error'; ?>">
+                                    <div class="form-group <?php if ($this->passwordError || !$this->form['password2']->isValid()) echo 'has-error'; ?>">
                                         <label><?= $this->translate('page.feeds.create.form.basic.password2.label'); ?></label>
                                         <div class="input-group">
                                             <div class="input-group-addon">

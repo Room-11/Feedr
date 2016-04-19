@@ -56,6 +56,11 @@
         0 => 'Feedr\\Presentation\\Controller\\Authentication',
         1 => 'doLogout',
       ),
+      '/feeds/create' => 
+      array (
+        0 => 'Feedr\\Presentation\\Controller\\Feed',
+        1 => 'doCreate',
+      ),
     ),
   ),
   1 => 

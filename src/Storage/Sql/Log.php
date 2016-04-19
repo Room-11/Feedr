@@ -48,16 +48,49 @@ class Log
     public function addLogInEntry(int $userId, string $ipAddress)
     {
         $query = 'INSERT INTO log';
-        $query.= ' (action, ip, user_id, timestamp)';
+        $query.= ' (action, user_id, timestamp, data)';
         $query.= ' VALUES';
-        $query.= ' (:action, :ip, :user_id, :timestamp)';
+        $query.= ' (:action, :user_id, :timestamp, :data)';
 
         $stmt = $this->dbConnection->prepare($query);
         $stmt->execute([
             'action'    => 'login',
-            'ip'        => $ipAddress,
             'user_id'   => $userId,
             'timestamp' => (new \DateTime())->format('Y-m-d H:i:s'),
+            'data'      => json_encode(['ip' => $ipAddress]),
+        ]);
+    }
+
+    public function addCreateFeedEntry(int $userId, int $feedId)
+    {
+        $query = 'INSERT INTO log';
+        $query.= ' (action, user_id, feed_id, timestamp)';
+        $query.= ' VALUES';
+        $query.= ' (:action, :user_id, :feed_id, :timestamp)';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'action'    => 'feed.create',
+            'user_id'   => $userId,
+            'feed_id'   => $feedId,
+            'timestamp' => (new \DateTime())->format('Y-m-d H:i:s'),
+        ]);
+    }
+
+    public function addAddAdminEntry(int $userId, int $adminId, int $feedId)
+    {
+        $query = 'INSERT INTO log';
+        $query.= ' (action, user_id, feed_id, timestamp)';
+        $query.= ' VALUES';
+        $query.= ' (:action, :user_id, :feed_id, :timestamp)';
+
+        $stmt = $this->dbConnection->prepare($query);
+        $stmt->execute([
+            'action'    => 'admin.add',
+            'user_id'   => $userId,
+            'feed_id'   => $feedId,
+            'timestamp' => (new \DateTime())->format('Y-m-d H:i:s'),
+            'data'      => json_encode(['admin' => $adminId]),
         ]);
     }
 
@@ -70,7 +103,7 @@ class Log
 
     private function getLastLogInEntries(int $userId): array
     {
-        $query = 'SELECT id, action, user_id, timestamp, data, ip';
+        $query = 'SELECT id, action, user_id, timestamp, data';
         $query.= ' FROM log';
         $query.= ' WHERE user_id = :user_id';
         $query.= ' AND action = :action';
@@ -83,6 +116,22 @@ class Log
             'action'  => 'login',
         ]);
 
-        return $stmt->fetchAll();
+        return $this->parseData($stmt->fetchAll());
+    }
+
+    /**
+     * Parses log entries' data attributes
+     *
+     * @param array $recordset The recordset containing the data
+     *
+     * @return array The recordset woth the parsed data
+     */
+    private function parseData(array $recordset): array
+    {
+        foreach ($recordset as $index => $record) {
+            $recordset[$index]['data'] = json_decode($record['data'], true);
+        }
+
+        return $recordset;
     }
 }

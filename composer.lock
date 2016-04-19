@@ -55,7 +55,7 @@
         },
         {
             "name": "codecollab/csrf-token",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeCollab/CsrfToken.git",
@@ -101,16 +101,16 @@
         },
         {
             "name": "codecollab/encryption",
-            "version": "dev-master",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeCollab/Encryption.git",
-                "reference": "c7261b3c233ab317012acd98384552bc61fca864"
+                "reference": "400d63236b456afdcaa78b0da4444eb1138b4e58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodeCollab/Encryption/zipball/c7261b3c233ab317012acd98384552bc61fca864",
-                "reference": "c7261b3c233ab317012acd98384552bc61fca864",
+                "url": "https://api.github.com/repos/CodeCollab/Encryption/zipball/400d63236b456afdcaa78b0da4444eb1138b4e58",
+                "reference": "400d63236b456afdcaa78b0da4444eb1138b4e58",
                 "shasum": ""
             },
             "require": {
@@ -144,7 +144,7 @@
                 "encryption",
                 "security"
             ],
-            "time": "2015-12-15 15:41:29"
+            "time": "2015-12-09 08:50:52"
         },
         {
             "name": "codecollab/form",
@@ -152,16 +152,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeCollab/Form.git",
-                "reference": "26d770113a2acb5846e4ed3e0f342aa00ecbf244"
+                "reference": "409f4bec158431d9aaeeb050858682b457d9521a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodeCollab/Form/zipball/26d770113a2acb5846e4ed3e0f342aa00ecbf244",
-                "reference": "26d770113a2acb5846e4ed3e0f342aa00ecbf244",
+                "url": "https://api.github.com/repos/CodeCollab/Form/zipball/409f4bec158431d9aaeeb050858682b457d9521a",
+                "reference": "409f4bec158431d9aaeeb050858682b457d9521a",
                 "shasum": ""
             },
             "require": {
-                "codecollab/csrf-token": "dev-master",
+                "codecollab/csrf-token": "1.0.*",
                 "codecollab/http": "dev-master",
                 "php": ">=7.0-dev"
             },
@@ -190,7 +190,7 @@
                 "codecollab",
                 "form"
             ],
-            "time": "2015-09-27 18:47:42"
+            "time": "2016-02-07 13:32:31"
         },
         {
             "name": "codecollab/http",
@@ -198,20 +198,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeCollab/Http.git",
-                "reference": "198c7f39469eb0da834f05aa469ed942c31a0cc3"
+                "reference": "e44de445054974e45ee75de380b223a4d9efbf09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodeCollab/Http/zipball/198c7f39469eb0da834f05aa469ed942c31a0cc3",
-                "reference": "198c7f39469eb0da834f05aa469ed942c31a0cc3",
+                "url": "https://api.github.com/repos/CodeCollab/Http/zipball/e44de445054974e45ee75de380b223a4d9efbf09",
+                "reference": "e44de445054974e45ee75de380b223a4d9efbf09",
                 "shasum": ""
             },
             "require": {
-                "codecollab/encryption": "dev-master",
-                "php": ">=7.0-dev"
+                "codecollab/encryption": "1.0.*",
+                "php": "7.0.*"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5"
+                "phpunit/phpunit": "5.1.*"
             },
             "type": "library",
             "autoload": {
@@ -240,7 +240,7 @@
                 "response",
                 "session"
             ],
-            "time": "2015-12-27 22:28:22"
+            "time": "2016-02-07 13:37:45"
         },
         {
             "name": "codecollab/i18n",
@@ -510,16 +510,16 @@
         },
         {
             "name": "lusitanian/oauth",
-            "version": "v0.8.6",
+            "version": "v0.8.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Lusitanian/PHPoAuthLib.git",
-                "reference": "769fea1bb53845c7b03cca97cbdd0708e9ec26da"
+                "reference": "29bda6e176df6c292a9b1c43ae8a44d56a87c30b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Lusitanian/PHPoAuthLib/zipball/769fea1bb53845c7b03cca97cbdd0708e9ec26da",
-                "reference": "769fea1bb53845c7b03cca97cbdd0708e9ec26da",
+                "url": "https://api.github.com/repos/Lusitanian/PHPoAuthLib/zipball/29bda6e176df6c292a9b1c43ae8a44d56a87c30b",
+                "reference": "29bda6e176df6c292a9b1c43ae8a44d56a87c30b",
                 "shasum": ""
             },
             "require": {
@@ -573,20 +573,20 @@
                 "oauth",
                 "security"
             ],
-            "time": "2015-12-21 00:06:34"
+            "time": "2016-02-24 00:20:18"
         },
         {
             "name": "matthiasmullie/minify",
-            "version": "1.3.29",
+            "version": "1.3.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthiasmullie/minify.git",
-                "reference": "58fa692aeffa9cbafacdd1e7b3c5b0e65cd76108"
+                "reference": "272e46113404f66ced256659552a0cc074a7810f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthiasmullie/minify/zipball/58fa692aeffa9cbafacdd1e7b3c5b0e65cd76108",
-                "reference": "58fa692aeffa9cbafacdd1e7b3c5b0e65cd76108",
+                "url": "https://api.github.com/repos/matthiasmullie/minify/zipball/272e46113404f66ced256659552a0cc074a7810f",
+                "reference": "272e46113404f66ced256659552a0cc074a7810f",
                 "shasum": ""
             },
             "require": {
@@ -596,8 +596,7 @@
             },
             "require-dev": {
                 "matthiasmullie/scrapbook": "~1.0",
-                "phpunit/phpunit": "~4.8",
-                "satooshi/php-coveralls": "dev-master"
+                "phpunit/phpunit": "~4.8"
             },
             "bin": [
                 "bin/minifycss",
@@ -630,20 +629,20 @@
                 "minifier",
                 "minify"
             ],
-            "time": "2015-12-17 21:38:16"
+            "time": "2016-03-01 08:00:27"
         },
         {
             "name": "matthiasmullie/path-converter",
-            "version": "1.0.5",
+            "version": "1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthiasmullie/path-converter.git",
-                "reference": "b1e31c51e8c207ad6114f5b4ac4e652bc936c380"
+                "reference": "83609c1bb251b2540eba912615571a501a0a06a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matthiasmullie/path-converter/zipball/b1e31c51e8c207ad6114f5b4ac4e652bc936c380",
-                "reference": "b1e31c51e8c207ad6114f5b4ac4e652bc936c380",
+                "url": "https://api.github.com/repos/matthiasmullie/path-converter/zipball/83609c1bb251b2540eba912615571a501a0a06a6",
+                "reference": "83609c1bb251b2540eba912615571a501a0a06a6",
                 "shasum": ""
             },
             "require": {
@@ -651,8 +650,8 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.3.*",
-                "satooshi/php-coveralls": "dev-master"
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "~1.0"
             },
             "type": "library",
             "autoload": {
@@ -680,7 +679,7 @@
                 "paths",
                 "relative"
             ],
-            "time": "2015-06-01 15:20:30"
+            "time": "2016-01-07 00:41:13"
         },
         {
             "name": "nikic/fast-route",
@@ -781,12 +780,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rdlowrey/auryn.git",
-                "reference": "f57eaf665a601dbe061c8b1426d84f58c003e6a8"
+                "reference": "d6e03a7026a1724965c921f4fbd8351ab8f0a9f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rdlowrey/auryn/zipball/f57eaf665a601dbe061c8b1426d84f58c003e6a8",
-                "reference": "f57eaf665a601dbe061c8b1426d84f58c003e6a8",
+                "url": "https://api.github.com/repos/rdlowrey/auryn/zipball/d6e03a7026a1724965c921f4fbd8351ab8f0a9f1",
+                "reference": "d6e03a7026a1724965c921f4fbd8351ab8f0a9f1",
                 "shasum": ""
             },
             "require": {

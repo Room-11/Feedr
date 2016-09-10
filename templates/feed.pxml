@@ -5,12 +5,11 @@
     <?php $posts = $this->feed['posts']; $firstPost = reset($posts); ?>
     <updated>
     <?php
-        if(isset($$firstPost['datetime']) && strlen($firstPost['datetime']) > 0) {
+        if(isset($firstPost['datetime']) && strlen($firstPost['datetime']) > 0) {
             echo htmlspecialchars($firstPost['datetime']->format('Y-m-d') . 'T' . $firstPost['datetime']->format('H:i:s') . 'Z', ENT_XML1 | ENT_QUOTES, 'UTF-8'); 
         } else {
-            echo "No time found!";
+            echo htmlspecialchars((new \DateTime)->format('Y-m-d') . 'T' . (new \DateTime)->format('H:i:s') . 'Z', ENT_XML1 | ENT_QUOTES, 'UTF-8'); 
         }
-        
     ?>
     </updated>
     <author>

@@ -202,7 +202,7 @@ class Feed
 
     public function getFeeds($userId)
     {
-        $query = 'SELECT feeds.id AS feedID, feeds.name, users.id AS userID, users.username';
+        $query = 'SELECT feeds.id AS "feedID", feeds.name, users.id AS "userID", users.username';
         $query.= ' FROM feeds';
         $query.= ' JOIN admins ON admins.feed_id = feeds.id';
         $query.= ' JOIN users ON users.id = admins.user_id';
